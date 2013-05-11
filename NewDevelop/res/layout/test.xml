@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>  
+ <LinearLayout xmlns:Android="http://schemas.android.com/apk/res/android"  
+    Android:orientation="horizontal"
+    Android:layout_width="fill_parent"  
+    Android:layout_height="fill_parent">  
+  
+    <!-- 商品图片 -->  
+    <ImageView Android:id="@+id/imageItem"    
+        Android:layout_width="wrap_content"  
+        Android:layout_height="wrap_content"    
+        Android:layout_margin="5px"/>  
+       
+    <!-- 商品信息 -->  
+    <LinearLayout Android:orientation="vertical"  
+        Android:layout_width="wrap_content"    
+        Android:layout_height="wrap_content">  
+  
+        <TextView Android:id="@+id/titleItem"    
+            Android:layout_width="wrap_content"  
+            Android:layout_height="wrap_content"    
+            Android:textColor="#FFFFFFFF"  
+            Android:textSize="13px" />  
+        <TextView Android:id="@+id/infoItem"    
+            Android:layout_width="wrap_content"  
+            Android:layout_height="wrap_content"    
+            Android:textColor="#FFFFFFFF"  
+            Android:textSize="22px" />  
+    </LinearLayout>  
+       
+    <!-- 购买和商品详情 -->  
+    <LinearLayout Android:gravity="right"  
+    Android:orientation="horizontal" Android:layout_width="fill_parent"  
+    Android:layout_height="wrap_content">  
+	    <CheckBox Android:id="@+id/checkItem"    
+	        Android:layout_width="wrap_content"  
+	        Android:layout_height="wrap_content"    
+	        Android:layout_margin="5px"/>  
+	    <Button  Android:id="@+id/detailItem"    
+	        Android:layout_width="wrap_content"  
+	        Android:layout_height="wrap_content"    
+	        Android:layout_margin="5px"/>  
+    </LinearLayout>  
+ </LinearLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/listItem1" android:layout_width="fill_parent"
+	android:layout_height="wrap_content" 
+	android:addStatesFromChildren="false" android:descendantFocusability="blocksDescendants">
+	<LinearLayout android:id="@+id/layout_recommend"
+	    android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+	<FrameLayout android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_marginLeft="7dp"
+			android:layout_marginRight="7dp" android:layout_marginTop="6dp"
+			android:layout_marginBottom="4dp">
+			<ImageView android:id="@+id/iv_icon" 
+			    android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:layout_gravity="center" 
+				android:paddingTop="3dp" android:paddingLeft="2.5dp" 
+				android:paddingRight="2.5dp" android:paddingBottom="4dp" 
+				android:src="@drawable/default_icon" />
+		</FrameLayout>
+		<FrameLayout android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:layout_weight="1">
+			<LinearLayout android:layout_width="fill_parent"
+				android:layout_marginTop="1dp" android:layout_height="fill_parent"
+				android:orientation="vertical" android:layout_weight="1"
+				android:gravity="top" android:layout_marginRight="5dip">
+				<TextView android:id="@+id/tv_name" android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:text="text"/>
+				<TextView android:id="@+id/tv_download_times" 
+				    android:layout_width="fill_parent"
+				    android:layout_height="wrap_content"
+					android:text="down" />
+			</LinearLayout>
+
+		</FrameLayout>
+		<!-- 下载 -->
+			<ImageView android:id="@+id/new_flag" android:layout_width="wrap_content"
+				android:visibility="gone" android:src="@drawable/btn_list_normal"
+				android:layout_height="wrap_content"/>
+	</LinearLayout>
+
+</RelativeLayout>

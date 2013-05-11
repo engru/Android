@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"  >
+    
+    <LinearLayout
+        android:id="@+id/root"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </LinearLayout>
+
+    <com.wkey.develop.ui.widget.FlipperView
+        android:id="@+id/flipper"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        flipperview=""
+        slidingmenu=""
+        android:background="#3cf63633"
+        android:orientation="vertical" >
+
+
+
+    </com.wkey.develop.ui.widget.FlipperView>
+</RelativeLayout>

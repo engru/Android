@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     /* //device/apps/common/assets/res/any/colors.xml ** ** Copyright 2008, 
+	The Android Open Source Project ** ** Licensed under the Apache License, 
+	Version 2.0 (the "License"); ** you may not use this file except in compliance 
+	with the License. ** You may obtain a copy of the License at ** ** http://www.apache.org/licenses/LICENSE-2.0 
+	** ** Unless required by applicable law or agreed to in writing, software 
+	** distributed under the License is distributed on an "AS IS" BASIS, ** WITHOUT 
+	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. ** See the 
+	License for the specific language governing permissions and ** limitations 
+	under the License. */
+-->
+<resources>
+
+    <color name="button_default">#182605</color>
+    <color name="button_pressed">#233908</color>
+    
+    <color name="gray">#ddd</color>
+    <color name="light_gray">#555</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="u_white">#87FFFFFF</color>
+    <color name="black">#000</color>
+    <color name="green">#696</color>
+    <color name="red">#c66</color>
+    <color name="blue">#369</color>
+    <color name="brown">#c96</color>
+    <color name="purple">#969</color>
+    <color name="orange">#f63</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="dark_yellow">#6B4D39</color>
+    <color name="transparent_very">#70000000</color>
+    <color name="transparent_half">#d0000000</color>
+    <color name="transparent_little">#d0aaaaaa</color>
+    <color name="blue_new">#323f54</color>
+    <color name="h_white">#afafaf</color>
+
+    <!-- 宫格字体颜色 -->
+    <color name="color_1">#ec644c</color>
+    <color name="color_2">#fa8041</color>
+    <color name="color_3">#faca5e</color>
+    <color name="color_4">#91cb7f</color>
+    <color name="color_5">#38cfea</color>
+    <color name="color_6">#bc54cd</color>
+
+    <!-- 自定义颜色 -->
+    <color name="allnote_title_color">#eeeeee</color> <!-- 所有笔记标题颜色 -->
+    <color name="allnote_text_color">#b0b0b0</color> <!-- 所有笔记具体日期文本颜色 -->
+    <color name="allnote_text_content_color">#434242</color> <!-- 所有笔记列表模式下文本内容颜色 -->
+    <color name="allnote_text_hint_color">#a4a4a4</color> <!-- 所有笔记列表模式下无文本内容时,提示语颜色 -->
+    <color name="about_text_color">#3a210a</color> <!-- 关于界面文本颜色 -->
+    <color name="home_title_color">#3a210a</color> <!-- 首页标题颜色 -->
+    <color name="home_title_shadow_color">#EEd4d3d3</color> <!-- 首页投影颜色 -->
+    <color name="home_content_color">#000000</color> <!-- 首页文本内容颜色 -->
+    <color name="home_menu_text_color">#d1cbbd</color> <!-- 首页菜单文本颜色 -->
+    <color name="setting_text_color">#000000</color> <!-- 设置界面文本颜色 -->
+    <color name="title_text_color">#2f547e</color> <!-- 编辑笔记、手写、涂鸦界面标题字体颜色 -->
+
+    <color name="allnote_title_shadow_color">#00d1ccbc</color> <!-- 所有笔记标题阴影色 -->
+    <color name="allnote_year_month_color">#d1ccbc</color> <!-- 所有笔记年份文字颜色 -->
+    <color name="allnote_year_month_shadow_color">#020202</color> <!-- 所有笔记年份文字阴影色 -->
+    <color name="allnote_sync_progress_text_color">#606060</color> <!-- 所有笔记同步进度文字颜色 -->
+
+
+    <!-- Widget -->
+    <color name="widget_position_total_color">#323f54</color> <!-- 位置/总个数颜色 -->
+    <color name="widget_time_color">#323f54</color> <!-- 位置/总个数颜色 -->
+    <color name="widget_content_color">#323f54</color> <!-- 位置/总个数颜色 -->
+    <color name="widget_content_shadow_color">#ffffff</color>
+    <!-- 关于 -->
+    <color name="light_black">#6D6D6D</color>
+    <color name="text_color_black">#1A1A1A</color>
+
+</resources>

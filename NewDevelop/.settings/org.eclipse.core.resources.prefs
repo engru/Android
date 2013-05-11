@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//src/com/wkey/develop/http/HttpClient.java=UTF-8
+encoding//src/com/wkey/develop/http/HttpRefusedException.java=UTF-8
+encoding//src/com/wkey/develop/http/RefuseError.java=UTF-8
+encoding//src/com/wkey/develop/http/ResponseException.java=UTF-8
+encoding//src/com/wkey/develop/ui/NetworkInfoActivity.java=UTF-8
+encoding//src/com/wkey/develop/ui/widget/PluginItem.java=UTF-8
+encoding//src/com/wkey/develop/utils/GenDescript.java=UTF-8
+encoding//src/com/wkey/develop/utils/MainDescript.java=UTF-8
+encoding//src/com/wkey/develop/utils/PluginFrameworkActivity.java=UTF-8
+encoding//src/com/wkey/develop/utils/PluginItem.java=UTF-8
