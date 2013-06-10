@@ -10,7 +10,9 @@ import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -140,7 +142,22 @@ public class ListViewAdapter extends BaseAdapter {
                         checkedChange(selectID);   
                     }   
         });   
+        /*
+        convertView.setContentDescription("false");
+        convertView.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View arg0) {
+				// TODO Auto-generated method stub
+				//arg0.requestFocus();//requestLayout();
+				arg0.setContentDescription("true");
+				return false;
+			}
+        	
+        });
+        */
         //Log.e("method", "getView:"+position + "end");  
         return convertView;   
     }   
+
 } 

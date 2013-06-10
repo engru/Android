@@ -1,6 +1,8 @@
 package com.wkey.develop;
 
 
+import com.oppo.transfer.ui.WifiTransferActivity;
+import com.wkey.develop.ui.MyTestActivity;
 import com.wkey.develop.ui.NetworkActivity;
 import com.wkey.develop.ui.NetworkInfoActivity;
 import com.wkey.develop.ui.WifiActivity;
@@ -39,6 +41,7 @@ public class MainActivity extends ActivityGroup {
 	///////
 	private Button btn_network;
 	private Button btn_wifi;
+	private Button btn_bluetooth;
 	private Button btn_nfc;
 	private Button  btn_plugin;
 	private RelativeLayout acti_root;
@@ -51,6 +54,8 @@ public class MainActivity extends ActivityGroup {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_main);
+        
+        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_bar); 	//设置自定义的标题栏 
         //getLocalActivityManager();
         initViews();
        // this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -65,7 +70,10 @@ public class MainActivity extends ActivityGroup {
     	View menu = LayoutInflater.from(this).inflate(R.layout.menu, null);
     	View content = LayoutInflater.from(this).inflate(R.layout.activity_welcome, null);
     	flipper = (FlipperView) findViewById(R.id.flipper);
-    	flipper.addView(content);
+    	//flipper.addView(content);
+		Intent it = new Intent(MainActivity.this, WifiTransferActivity.class);
+		flipper.addView(getLocalActivityManager().startActivity("wifitransfer",it).getDecorView());
+		
     	
     	root = (LinearLayout) findViewById(R.id.root);
         LinearLayout.LayoutParams rootParams = new LinearLayout.LayoutParams(
@@ -76,6 +84,7 @@ public class MainActivity extends ActivityGroup {
       //  mToggleBtn.setOnClickListener(mBtnListener);
         
         mMenuBtn = (ImageButton) findViewById(R.id.btn_menu);
+        if(mMenuBtn!=null)
         mMenuBtn.setOnClickListener(mBtnListener);
         
         ///////
@@ -84,6 +93,9 @@ public class MainActivity extends ActivityGroup {
         
         btn_wifi = (Button) findViewById(R.id.btn_wifi);
         btn_wifi.setOnClickListener(mBtnListener);
+        
+        btn_bluetooth = (Button) findViewById(R.id.btn_bluetooth);
+        btn_bluetooth.setOnClickListener(mBtnListener);
         
         btn_nfc = (Button) findViewById(R.id.btn_nfc);
         btn_nfc.setOnClickListener(mBtnListener);
@@ -97,9 +109,17 @@ public class MainActivity extends ActivityGroup {
 		LayoutInflater flater; //= LayoutInflater.from(mContext);
 		Intent it;
 		View view;
+
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			//flipper.removeAllViews();
+			if(acti_root==null)
+			{	flipper.removeAllViews();
+				View content = LayoutInflater.from(mContext).inflate(R.layout.activity_welcome, null);
+				flipper.addView(content);
+			}
+			
 			System.out.println("onclick:"+v.getId());
 			switch(v.getId()){
 			case R.id.btn_menu:
@@ -132,6 +152,15 @@ public class MainActivity extends ActivityGroup {
 				
 				flipper.slidingMenu();
 				break;
+			case R.id.btn_bluetooth:
+				acti_root =  (RelativeLayout) findViewById(R.id.acti_root);
+				acti_root.removeAllViews();
+				
+				it = new Intent(MainActivity.this, MyTestActivity.class);
+				acti_root.addView(getLocalActivityManager().startActivity("bt",it).getDecorView());
+				
+				flipper.slidingMenu();
+				break;
 			case R.id.btn_nfc:
 				acti_root =  (RelativeLayout) findViewById(R.id.acti_root);
 				acti_root.removeAllViews();
@@ -154,15 +183,19 @@ public class MainActivity extends ActivityGroup {
 				break;
 
 			}
+			
+	        mMenuBtn = (ImageButton) findViewById(R.id.btn_menu);
+	        if(mMenuBtn!=null)
+	        mMenuBtn.setOnClickListener(mBtnListener);
 		}
     };
 
 	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+  //  public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+  //      getMenuInflater().inflate(R.menu.main, menu);
+  //      return true;
+  //  }
 
  //   public boolean onInterceptTouchEvent(MotionEvent ev) {
 //        int action = ev.getAction();

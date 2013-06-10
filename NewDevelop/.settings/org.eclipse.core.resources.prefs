@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/com/wkey/develop/config/Constants.java=UTF-8
 encoding//src/com/wkey/develop/http/HttpClient.java=UTF-8
 encoding//src/com/wkey/develop/http/HttpRefusedException.java=UTF-8
 encoding//src/com/wkey/develop/http/RefuseError.java=UTF-8

@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>  
- <LinearLayout xmlns:Android="http://schemas.android.com/apk/res/android"  
-    Android:orientation="horizontal"
-    Android:layout_width="fill_parent"  
-    Android:layout_height="fill_parent">  
-  
-    <!-- 商品图片 -->  
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:background="#438150"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+  <!--  
+
     <ImageView Android:id="@+id/imageItem"    
         Android:layout_width="wrap_content"  
         Android:layout_height="wrap_content"    
         Android:layout_margin="5px"/>  
-       
-    <!-- 商品信息 -->  
+
     <LinearLayout Android:orientation="vertical"  
         Android:layout_width="wrap_content"    
         Android:layout_height="wrap_content">  
@@ -27,7 +32,7 @@
             Android:textSize="22px" />  
     </LinearLayout>  
        
-    <!-- 购买和商品详情 -->  
+
     <LinearLayout Android:gravity="right"  
     Android:orientation="horizontal" Android:layout_width="fill_parent"  
     Android:layout_height="wrap_content">  
@@ -40,4 +45,21 @@
 	        Android:layout_height="wrap_content"    
 	        Android:layout_margin="5px"/>  
     </LinearLayout>  
- </LinearLayout>
+    -->
+    <Button
+         android:id="@+id/button1"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Button" />
+    
+    <RelativeLayout
+         android:id="@+id/mView"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" >
+         
+     </RelativeLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

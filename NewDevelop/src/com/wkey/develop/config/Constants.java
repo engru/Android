@@ -31,9 +31,9 @@ public class Constants {
 			"592"		,	//1 loginRand
 			"N"			,	//2 
 			"Y"			,	//3 Flag
-			"wkeycn"	,	//4   ÕËºÅ
+			"wkeycn"	,	//4   è´¦å·
 			""			,	//5 
-			"a123456"	,	//6   ÃÜÂë
+			"a123456"	,	//6   å¯†ç 
 			""			,	//7 
 			"NTU4"		,	//8 randCode
 			""				//9 
@@ -48,29 +48,29 @@ public class Constants {
 	/**
 	 * URL
 	 */
-	public static final String url_randCode	//ÑéÖ¤Âë
+	public static final String url_randCode	//éªŒè¯ç 
 		="https://dynamic.12306.cn/otsweb/passCodeAction.do?rand=sjrand&0.577396409586072";
-	public static final String url_loginCode 	//µÇÂ½Âë
-		= "https://dynamic.12306.cn/otsweb/loginAction.do?method=loginAysnSuggest";	//ÑéÖ¤µØÖ·
-	public static final String url_login		//µÇÂ½µØÖ·
-		= "https://dynamic.12306.cn/otsweb/loginAction.do?method=login";				//µÇÂ¼µØÖ·
+	public static final String url_loginCode 	//ç™»é™†ç 
+		= "https://dynamic.12306.cn/otsweb/loginAction.do?method=loginAysnSuggest";	//éªŒè¯åœ°å€
+	public static final String url_login		//ç™»é™†åœ°å€
+		= "https://dynamic.12306.cn/otsweb/loginAction.do?method=login";				//ç™»å½•åœ°å€
 	
-	/*¸öÈË¹¦ÄÜ*/
-	//¶©µ¥
-		//Î´Íê³É¶©µ¥
-		//¶©µ¥²éÑ¯
-		//Ô¤Ô¼²éÑ¯
-		//¶ÌĞÅ´ú²é
-		//ÍËÆ±
-		//¸ÄÇ©
+	/*ä¸ªäººåŠŸèƒ½*/
+	//è®¢å•
+		//æœªå®Œæˆè®¢å•
+		//è®¢å•æŸ¥è¯¢
+		//é¢„çº¦æŸ¥è¯¢
+		//çŸ­ä¿¡ä»£æŸ¥
+		//é€?¥¨
+		//æ”¹ç­¾
 
-	/*¸öÈËĞÅÏ¢*/
-	public static final String url_getPagePassengerAll //³£ÓÃÁªÏµÈË
+	/*ä¸ªäººä¿¡æ¯*/
+	public static final String url_getPagePassengerAll //å¸¸ç”¨è”ç³»äºº
 		= "https://dynamic.12306.cn/otsweb/passengerAction.do?method=getPagePassengerAll";
 
-		//¸öÈË×ÊÁÏ
-		//ÃÜÂëĞŞ¸Ä
-		//»ı·ÖÕË»§
+		//ä¸ªäººèµ„æ–™
+		//å¯†ç ä¿®æ”¹
+		//ç§¯åˆ†è´¦æˆ·
 	
-	//Í¨ÓÃ
+	//é€šç”¨
 }

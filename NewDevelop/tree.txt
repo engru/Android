@@ -1,0 +1,286 @@
+卷 DSK2_VOL2 的文件夹 PATH 列表
+卷序列号为 F499-54DD
+D:.
+├─res
+│  ├─color
+│  ├─drawable
+│  │      selector_chooser_btn.xml
+│  │      selector_menu_btn_color.xml
+│  │      shape_context.xml
+│  │      
+│  ├─drawable-hdpi
+│  │      arrow.png
+│  │      btn_list_normal.png
+│  │      btn_new.png
+│  │      default_icon.png
+│  │      ic_collection.png
+│  │      ic_launcher.png
+│  │      list_button_download_default.png
+│  │      
+│  ├─drawable-ldpi
+│  ├─drawable-mdpi
+│  │      ic_launcher.png
+│  │      
+│  ├─drawable-xhdpi
+│  │      ic_launcher.png
+│  │      
+│  ├─drawable-xxhdpi
+│  │      ic_launcher.png
+│  │      
+│  ├─layout
+│  │      activity_main.xml
+│  │      activity_network.xml
+│  │      activity_welcome.xml
+│  │      activity_wifi_transfer.xml
+│  │      item_network.xml
+│  │      list_footer.xml
+│  │      list_head.xml
+│  │      list_item_network.xml
+│  │      list_item_product.xml
+│  │      list_item_wifi_transfer.xml
+│  │      menu.xml
+│  │      network_viewpager_info.xml
+│  │      netwrok_pagerview.xml
+│  │      plugin_framework_main.xml
+│  │      plugin_item.xml
+│  │      test.xml
+│  │      wifi_acti_info.xml
+│  │      
+│  ├─menu
+│  │      main.xml
+│  │      
+│  ├─values
+│  │      colors.xml
+│  │      dimens.xml
+│  │      strings.xml
+│  │      styles.xml
+│  │      
+│  ├─values-sw600dp
+│  │      dimens.xml
+│  │      
+│  ├─values-sw720dp-land
+│  │      dimens.xml
+│  │      
+│  ├─values-v11
+│  │      styles.xml
+│  │      
+│  ├─values-v14
+│  │      styles.xml
+│  │      
+│  └─xml
+└─src
+    ├─com
+    │  ├─oppo
+    │  │  └─transfer
+    │  │      ├─core
+    │  │      │  │  TransferTask.java
+    │  │      │  │  
+    │  │      │  └─socket
+    │  │      │          Client.java
+    │  │      │          FileReceiver.java
+    │  │      │          FileSender.java
+    │  │      │          Server.java
+    │  │      │          SocketUtils.java
+    │  │      │          
+    │  │      ├─ui
+    │  │      │      BaseActivity.java
+    │  │      │      FileTransfer.java
+    │  │      │      WifiTransferActivity.java
+    │  │      │      
+    │  │      └─utils
+    │  │              WiFiDirectBroadcastReceiver.java
+    │  │              WifiUtil.java
+    │  │              
+    │  └─wkey
+    │      └─develop
+    │          │  MainActivity.java
+    │          │  
+    │          ├─config
+    │          │      Constants.java
+    │          │      FormDataPostUtils.java
+    │          │      PostParams.java
+    │          │      QueryParamsUtils.java
+    │          │      
+    │          ├─datacache
+    │          │  ├─cache
+    │          │  │  ├─disc
+    │          │  │  │  │  BaseDiscCache.java
+    │          │  │  │  │  DiscCacheAware.java
+    │          │  │  │  │  LimitedDiscCache.java
+    │          │  │  │  │  
+    │          │  │  │  ├─impl
+    │          │  │  │  │      FileCountLimitedDiscCache.java
+    │          │  │  │  │      LimitedAgeDiscCache.java
+    │          │  │  │  │      TotalSizeLimitedDiscCache.java
+    │          │  │  │  │      UnlimitedDiscCache.java
+    │          │  │  │  │      
+    │          │  │  │  └─naming
+    │          │  │  │          FileNameGenerator.java
+    │          │  │  │          HashCodeFileNameGenerator.java
+    │          │  │  │          Md5FileNameGenerator.java
+    │          │  │  │          
+    │          │  │  └─memory
+    │          │  │      │  BaseMemoryCache.java
+    │          │  │      │  LimitedMemoryCache.java
+    │          │  │      │  MemoryCacheAware.java
+    │          │  │      │  
+    │          │  │      └─impl
+    │          │  │              FIFOLimitedMemoryCache.java
+    │          │  │              FuzzyKeyMemoryCache.java
+    │          │  │              LargestLimitedMemoryCache.java
+    │          │  │              LimitedAgeMemoryCache.java
+    │          │  │              LRULimitedMemoryCache.java
+    │          │  │              LruMemoryCache.java
+    │          │  │              UsingFreqLimitedMemoryCache.java
+    │          │  │              WeakMemoryCache.java
+    │          │  │              
+    │          │  ├─core
+    │          │  │  │  DefaultConfigurationFactory.java
+    │          │  │  │  DisplayBitmapTask.java
+    │          │  │  │  DisplayImageOptions.java
+    │          │  │  │  ImageLoader.java
+    │          │  │  │  ImageLoaderConfiguration.java
+    │          │  │  │  ImageLoaderEngine.java
+    │          │  │  │  ImageLoadingInfo.java
+    │          │  │  │  LoadAndDisplayImageTask.java
+    │          │  │  │  ProcessAndDisplayImageTask.java
+    │          │  │  │  
+    │          │  │  ├─assist
+    │          │  │  │  │  DiscCacheUtil.java
+    │          │  │  │  │  FailReason.java
+    │          │  │  │  │  FlushedInputStream.java
+    │          │  │  │  │  ImageLoadingListener.java
+    │          │  │  │  │  ImageScaleType.java
+    │          │  │  │  │  ImageSize.java
+    │          │  │  │  │  MemoryCacheUtil.java
+    │          │  │  │  │  PauseOnScrollListener.java
+    │          │  │  │  │  QueueProcessingType.java
+    │          │  │  │  │  SimpleImageLoadingListener.java
+    │          │  │  │  │  ViewScaleType.java
+    │          │  │  │  │  
+    │          │  │  │  └─deque
+    │          │  │  │          BlockingDeque.java
+    │          │  │  │          Deque.java
+    │          │  │  │          LIFOLinkedBlockingDeque.java
+    │          │  │  │          LinkedBlockingDeque.java
+    │          │  │  │          
+    │          │  │  ├─decode
+    │          │  │  │      BaseImageDecoder.java
+    │          │  │  │      ImageDecoder.java
+    │          │  │  │      ImageDecodingInfo.java
+    │          │  │  │      
+    │          │  │  ├─display
+    │          │  │  │      BitmapDisplayer.java
+    │          │  │  │      FadeInBitmapDisplayer.java
+    │          │  │  │      FakeBitmapDisplayer.java
+    │          │  │  │      RoundedBitmapDisplayer.java
+    │          │  │  │      SimpleBitmapDisplayer.java
+    │          │  │  │      
+    │          │  │  ├─download
+    │          │  │  │      BaseImageDownloader.java
+    │          │  │  │      HttpClientImageDownloader.java
+    │          │  │  │      ImageDownloader.java
+    │          │  │  │      NetworkDeniedImageDownloader.java
+    │          │  │  │      SlowNetworkImageDownloader.java
+    │          │  │  │      
+    │          │  │  └─process
+    │          │  │          BitmapProcessor.java
+    │          │  │          
+    │          │  └─utils
+    │          │          ImageSizeUtils.java
+    │          │          IoUtils.java
+    │          │          L.java
+    │          │          StorageUtils.java
+    │          │          
+    │          ├─encap
+    │          ├─game
+    │          │  │  MySurfaceView.java
+    │          │  │  
+    │          │  ├─f2d
+    │          │  ├─f3d
+    │          │  │      ColorRect.java
+    │          │  │      Constant.java
+    │          │  │      Cube.java
+    │          │  │      f3dSurfaceView.java
+    │          │  │      
+    │          │  └─objloader
+    │          │          Material.java
+    │          │          MTLParser.java
+    │          │          MyRenderer.java
+    │          │          ObjLoaderApp.java
+    │          │          OBJParser.java
+    │          │          RGBColor.java
+    │          │          TDModel.java
+    │          │          TDModelPart.java
+    │          │          Triangulator.java
+    │          │          
+    │          ├─http
+    │          │      HTMLEntity.java
+    │          │      HttpAuthException.java
+    │          │      HttpClient.java
+    │          │      HttpException.java
+    │          │      HttpRefusedException.java
+    │          │      HttpRequestException.java
+    │          │      HttpServerException.java
+    │          │      RefuseError.java
+    │          │      Response.java
+    │          │      ResponseException.java
+    │          │      
+    │          ├─plugin
+    │          ├─services
+    │          │      HttpManager.java
+    │          │      HttpServices.java
+    │          │      
+    │          ├─task
+    │          │      HttpGetTask.java
+    │          │      HttpPostTask.java
+    │          │      
+    │          ├─ui
+    │          │  │  MyTestActivity.java
+    │          │  │  NetworkActivity.java
+    │          │  │  NetworkInfoActivity.java
+    │          │  │  NetworkTab.java
+    │          │  │  WifiActivity.java
+    │          │  │  
+    │          │  └─widget
+    │          │      │  CopyOfDynamicListView.java
+    │          │      │  DragListView.java
+    │          │      │  DynamicListView.java
+    │          │      │  FlipperView.java
+    │          │      │  ListFooterView.java
+    │          │      │  ListHeaderView.java
+    │          │      │  PluginItem.java
+    │          │      │  
+    │          │      └─adapter
+    │          │              ListViewAdapter.java
+    │          │              
+    │          └─utils
+    │                  GenDescript.java
+    │                  MainDescript.java
+    │                  PluginFrameworkActivity.java
+    │                  PluginItem.java
+    │                  SSLSocketFactoryEx.java
+    │                  
+    └─org
+        └─igeek
+            └─android
+                └─pluginframework
+                    │  PluginBuilder.java
+                    │  PluginDescription.java
+                    │  PluginInvoke.java
+                    │  PluginSearch.java
+                    │  
+                    ├─annotation
+                    │      PluginDescription.java
+                    │      PluginFeature.java
+                    │      PluginMethod.java
+                    │      
+                    ├─beans
+                    │      Plugin.java
+                    │      PluginFeature.java
+                    │      PluginFeatureMethod.java
+                    │      PluginIntent.java
+                    │      
+                    └─util
+                            XMLParse.java
+                            

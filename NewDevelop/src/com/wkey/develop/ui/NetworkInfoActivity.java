@@ -7,11 +7,15 @@ import java.util.Map;
 import java.util.zip.Inflater;
 
 import com.wkey.develop.R;
+import com.wkey.develop.ui.widget.DynamicListView;
+import com.wkey.develop.ui.widget.DynamicListView.OnRefreshListener;
 import com.wkey.develop.ui.widget.adapter.ListViewAdapter;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.database.DataSetObserver;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -28,11 +32,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class NetworkInfoActivity extends Activity {
-	ListView mlistView;
+	DynamicListView mlistView;
     private ListViewAdapter listViewAdapter;
     private List<Map<String, Object>> listItems;
 	LayoutInflater lf;
 	Button btn_list;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -42,14 +47,45 @@ public class NetworkInfoActivity extends Activity {
 	    listItems = getListItems();   
         listViewAdapter = new ListViewAdapter(this, listItems); //创建适配器   
 	 
-	    mlistView = (ListView) findViewById(R.id.mlistView);
+	    mlistView = (DynamicListView) findViewById(R.id.mdylistView);
 		mlistView.setAdapter(listViewAdapter);
-		mlistView.setOnScrollListener(mScrollListener);
+		//mlistView.setOnScrollListener(mScrollListener);
 	    //setListAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,COUNTRIES));
 		
 		btn_list = (Button)findViewById(R.id.btn_network_listview);
 		btn_list.setOnClickListener(mBtnListener);
+		
+
+		mlistView.setonRefreshListener(new OnRefreshListener() {
+			public void onRefresh(String str) {
+				if(str.equals("head"))	
+					new AsyncTask<Void, Void, Void>() {
+						protected Void doInBackground(Void... params) {
+							try {
+								Thread.sleep(1000);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+							//data.add("刷新后添加的内容");
+							return null;
+						}
+	
+						@Override
+						protected void onPostExecute(Void result) {
+							listViewAdapter.notifyDataSetChanged();
+							mlistView.onRefreshComplete();
+						}
+	
+					}.execute();//.execute(null);
+				else 
+					refreshHandler.sendEmptyMessageDelayed(200, 0);
+			}
+		});
+		
+		
 	}
+	
+	
 	
 	OnScrollListener mScrollListener = new OnScrollListener(){
 
@@ -126,6 +162,9 @@ public class NetworkInfoActivity extends Activity {
 			case 100://WHAT_NOTIFY_GET_PRODUCTS:
 				updateListView();
 				break;
+			case 200:
+				onRefresh();
+				break;
 			default:
 				//if (isScrolling) {
 					//hasNotify = true;
@@ -142,8 +181,7 @@ public class NetworkInfoActivity extends Activity {
 		}
 	};
 	
-    private String[] goodsNames = {"蛋糕", "礼物",    
-            "邮票", "爱心", "鼠标", "音乐CD"};   
+    private String[] goodsNames = {"蛋糕"};//, "礼物", "邮票", "爱心", "鼠标", "音乐CD"};   
     private String[] goodsDetails = {   
             "蛋糕：好好吃。",    
             "礼物：礼轻情重。",    
@@ -168,5 +206,18 @@ public class NetworkInfoActivity extends Activity {
     }   
 
 	
+    
+    public void onRefresh(){
+		List<Map<String, Object>> listItems = new ArrayList<Map<String, Object>>();  
+        Map<String, Object> map = new HashMap<String, Object>();    
+        map.put("image", R.drawable.list_button_download_default);//imgeIDs[i]);               //图片资源   
+        map.put("title", "物品名称：");              //物品标题   
+        map.put("info", "footer");     //物品名称   
+        map.put("detail", "footerView"); //物品详情   
+        listItems.add(map);  
+
+		refreshHandler.sendEmptyMessageDelayed(100, 0);//.sendEmptyMessage(100);
+		listViewAdapter.addListItem(listItems);
+    }
     
 }

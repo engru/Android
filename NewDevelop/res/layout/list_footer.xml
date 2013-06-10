@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="fill_parent"
+    android:orientation="vertical" android:gravity="center_horizontal"
+    android:paddingTop="13dp" android:paddingBottom="13dp">
+    <TextView android:id="@+id/more_id" 
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
+        android:text="查看更多..."
+        android:textSize="15dp" 
+        android:gravity="center_horizontal"/>
+    <LinearLayout android:id="@+id/load_id"
+		android:orientation="horizontal"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+        <ProgressBar android:layout_width="20dp" 
+            android:layout_height="20dp"
+            android:layout_gravity="center_horizontal" />
+        <TextView android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" 
+            android:layout_marginLeft="10dp"
+            android:text="正在加载..." 
+            android:textSize="15dp"/>
+    </LinearLayout>
+</LinearLayout>
+
+
+<!-- 
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:id="@+id/footer_root">
+
+	<LinearLayout android:id="@+id/footer_loading"
+		android:orientation="vertical" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:visibility="invisible">
+		<ImageView android:layout_width="fill_parent"
+			android:scaleType="fitXY" 
+			android:layout_height="wrap_content"
+			android:src="@drawable/scrollviewline" />
+		<LinearLayout android:orientation="horizontal"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:gravity="center" 
+			android:paddingTop="8dp"
+			android:paddingBottom="8dp">
+			<ProgressBar android:id="@+id/pb_loading"
+				android:indeterminateDrawable="@anim/waiting_small_animation"
+				android:layout_width="16dp" 
+				android:layout_height="16dp"
+				android:gravity="center_vertical" 
+				android:layout_gravity="center_vertical" />
+			<TextView android:id="@+id/tv_hint" 
+			    android:layout_width="wrap_content"
+				android:gravity="center_vertical" 
+				android:layout_gravity="center_vertical"
+				android:layout_height="wrap_content" 
+				android:paddingLeft="10dp"
+				android:textColor="@color/text_black" 
+				android:paddingRight="0dp"
+				android:text="@string/loading" />
+		</LinearLayout>
+	</LinearLayout>
+    
+    
+</LinearLayout>
+ -->
