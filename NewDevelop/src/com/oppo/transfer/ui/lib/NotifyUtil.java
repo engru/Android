@@ -19,7 +19,7 @@ public class NotifyUtil implements StateListener{
 	NotificationCompat.Builder mCBuilder;
 	Notification.Builder mBuilder;
 
-	//Ö»ĞèÔÚÖ÷Ïß³ÌÖĞ³õÊ¼»°Ò»ÏÂ¼´¿É
+	//åªéœ€åœ¨ä¸»çº¿ç¨‹ä¸­åˆå§‹è¯ä¸€ä¸‹å³å¯
 	
 	public NotifyUtil(Context mContext){
 		this.mContext = mContext;
@@ -28,7 +28,7 @@ public class NotifyUtil implements StateListener{
 		
 	}
 	
-	//Ä¬ÈÏ
+	//é»˜è®¤
 	
 	private void OlderNotification(){
 		Notification mNotification = new Notification();
@@ -77,7 +77,7 @@ public class NotifyUtil implements StateListener{
 	}
 	
 	
-	//×Ô¶¨Òå
+	//è‡ªå®šä¹‰
 	
 	
 	

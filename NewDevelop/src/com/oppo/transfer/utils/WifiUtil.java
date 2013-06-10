@@ -188,7 +188,7 @@ public class WifiUtil {
 	/*
 	public int getIpAddress() {
 		 WifiManager wifiManager = (WifiManager) this.context.getSystemService(Context.WIFI_SERVICE);
-		// ÅĞ¶ÏwifiÊÇ·ñ¿ªÆô
+		// åˆ¤æ–­wifiæ˜¯å¦å¼€å¯
 		if (!wifiManager.isWifiEnabled()) {
 			wifiManager.setWifiEnabled(true);
 		}

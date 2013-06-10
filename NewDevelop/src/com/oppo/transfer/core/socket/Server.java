@@ -13,8 +13,8 @@ import com.oppo.transfer.core.utils.Constants;
 
 public class Server {
 	ServerSocket server = null;
-	//¶àÏß³Ì
-	private static List<Socket> list = new ArrayList<Socket>(); // ±£´æÁ¬½Ó¶ÔÏó 
+	//å¤šçº¿ç¨‹
+	private static List<Socket> list = new ArrayList<Socket>(); // ä¿å­˜è¿æ¥å¯¹è±¡ 
 	private ExecutorService exec; 
 	
 	FileReceiver fr = null;
@@ -52,7 +52,7 @@ public class Server {
 		public Task(Socket client) {
 			// TODO Auto-generated constructor stub
 			this.socket = client;
-			//³õÊ¼»¯µÄÏûÏ¢ºÍ²Ù×÷
+			//åˆå§‹åŒ–çš„æ¶ˆæ¯å’Œæ“ä½œ
 		}
 
 		@Override
@@ -71,9 +71,9 @@ public class Server {
 			String CTR = null; 
 			while(true){
 				CTR = fr.getMsg();
-				//ÊÇÎÄ¼ş»¹ÊÇÎÄ¼ş¼Ğ£¬
+				//æ˜¯æ–‡ä»¶è¿˜æ˜¯æ–‡ä»¶å¤¹ï¼Œ
 				if(CTR.equals(Constants.END) || CTR.equals(Constants.EXCEP)){
-					//Íê³É
+					//å®Œæˆ
 					socket.close();
 					return;
 				}else if(CTR.equals(Constants.FILE)){
@@ -83,9 +83,9 @@ public class Server {
 				}else if(CTR.equals(Constants.DEFINED)){
 					ReceiveDefined(socket);
 				}
-				//Ğ­ÉÌ²ÎÊı
+				//åå•†å‚æ•°
 				
-				//ÕıÊ½´«Êä
+				//æ­£å¼ä¼ è¾“
 			}
 		}
 		

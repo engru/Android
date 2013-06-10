@@ -3,8 +3,8 @@ package com.oppo.transfer.core.socket;
 public class Negotiate {
 	
 	
-	//¼àÌı·şÎñ
+	//ç›‘å¬æœåŠ¡
 	
-	//Æô¶¯¿Í»§¶Ë
+	//å¯åŠ¨å®¢æˆ·ç«¯
 
 }

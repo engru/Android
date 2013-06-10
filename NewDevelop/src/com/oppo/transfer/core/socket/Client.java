@@ -33,8 +33,8 @@ public class Client {
 	}
 	
 	private void send(Socket socket){
-		sendInfo(socket);	//È·¶¨Í¬²½Ä£Ê½»¹ÊÇÒì²½Ä£Ê½
-		if(false){	//Í¬²½Ä£Ê½
+		sendInfo(socket);	//ç¡®å®šåŒæ­¥æ¨¡å¼è¿˜æ˜¯å¼‚æ­¥æ¨¡å¼
+		if(false){	//åŒæ­¥æ¨¡å¼
 			
 		}else{
 			sendContent(socket);
@@ -43,7 +43,7 @@ public class Client {
 			}else{
 				
 			}
-			sendComplete(socket); //½áÊø¿ØÖÆ·û
+			sendComplete(socket); //ç»“æŸæ§åˆ¶ç¬¦
 		}
 	}
 	
@@ -72,15 +72,15 @@ public class Client {
 
 		sender.sendMsg(Constants.CTR_STATE);
 
-		if(Constants.CTR_STATE.equals(Constants.FILE)){	//file ÎªÎÄ¼ş
-			//·¢ËÍÎÄ¼şĞÅÏ¢£¬°üÀ¨ ÎÄ¼şÃû£¬ÎÄ¼ş´óĞ¡£¬filename,size
+		if(Constants.CTR_STATE.equals(Constants.FILE)){	//file ä¸ºæ–‡ä»¶
+			//å‘é€æ–‡ä»¶ä¿¡æ¯ï¼ŒåŒ…æ‹¬ æ–‡ä»¶åï¼Œæ–‡ä»¶å¤§å°ï¼Œfilename,size
 			sendFile(socket,path);
 			return;
 			
-		}else if(Constants.CTR_STATE.equals(Constants.DIR)){		//file ÎªÎÄ¼ş¼Ğ
-			//É¨Ãè£¬±£³ÖÎÄ¼ş¼ĞĞÅÏ¢
+		}else if(Constants.CTR_STATE.equals(Constants.DIR)){		//file ä¸ºæ–‡ä»¶å¤¹
+			//æ‰«æï¼Œä¿æŒæ–‡ä»¶å¤¹ä¿¡æ¯
 			transInfo = null;
-			//·¢ËÍÎÄ¼ş¼ĞĞÅÏ¢£¬ÎÄ¼ş¼Ğ½á¹¹£¬ÎÄ¼şÊı£¬ÎÄ¼şÃûÊı×é£¬ÎÄ¼ş´óĞ¡Êı×é£¬
+			//å‘é€æ–‡ä»¶å¤¹ä¿¡æ¯ï¼Œæ–‡ä»¶å¤¹ç»“æ„ï¼Œæ–‡ä»¶æ•°ï¼Œæ–‡ä»¶åæ•°ç»„ï¼Œæ–‡ä»¶å¤§å°æ•°ç»„ï¼Œ
 			//folderStruct, fileNumber,filename array, file size array
 			int i = path.lastIndexOf("/");
 			String src = path.substring(0,i+1);
@@ -95,7 +95,7 @@ public class Client {
 	}
 	
 	private void sendFile(Socket socket,String path){
-		//¿ØÖÆ×Ö¶Î
+		//æ§åˆ¶å­—æ®µ
 		if(Constants.CTR_STATE.equals(Constants.FILE)){
 			;
 		}else{
@@ -113,7 +113,7 @@ public class Client {
 	
 	////////////////////////////////////////////////////////
 	private void sendFile(Socket socket,String path,String src,String filename){
-		//¿ØÖÆ×Ö¶Î
+		//æ§åˆ¶å­—æ®µ
 		if(Constants.CTR_STATE.equals(Constants.FILE)){
 			sender.sendMsg(Constants.ONLYFILE);
 		}else{
@@ -131,18 +131,18 @@ public class Client {
         }
 	}
 	
-    public String getPath(String all, String pre,String filename)// ÒÑÖª¾ø¶ÔÂ·¾¶Óë¸ùÄ¿Â¼¡¢ÎÄ¼şÃû£¬»ñµÃÎÄ¼şÏà¶ÔÂ·¾¶
-    {// allÎª¾ø¶ÔÂ·¾¶£¬preÎª¸ù
-        int l1 = pre.length();// ¸ùÂ·¾¶³¤¶È
-        int l2=filename.length();//ÎÄ¼şÃû³¤¶È
+    public String getPath(String all, String pre,String filename)// å·²çŸ¥ç»å¯¹è·¯å¾„ä¸æ ¹ç›®å½•ã€æ–‡ä»¶åï¼Œè·å¾—æ–‡ä»¶ç›¸å¯¹è·¯å¾„
+    {// allä¸ºç»å¯¹è·¯å¾„ï¼Œpreä¸ºæ ¹
+        int l1 = pre.length();// æ ¹è·¯å¾„é•¿åº¦
+        int l2=filename.length();//æ–‡ä»¶åé•¿åº¦
         int l=all.length();
         String r = all.substring(l1,l-l2-1);
         return r;
     }
 
-	 public String getPath(String all, String pre)// ÒÑÖª¾ø¶ÔÂ·¾¶Óë¸ùÄ¿Â¼£¬»ñµÃÏà¶ÔÂ·¾¶
-	 {// allÎª¾ø¶ÔÂ·¾¶£¬preÎª¸ù
-	 	int l = pre.length();// ¸ùÂ·¾¶³¤¶È
+	 public String getPath(String all, String pre)// å·²çŸ¥ç»å¯¹è·¯å¾„ä¸æ ¹ç›®å½•ï¼Œè·å¾—ç›¸å¯¹è·¯å¾„
+	 {// allä¸ºç»å¯¹è·¯å¾„ï¼Œpreä¸ºæ ¹
+	 	int l = pre.length();// æ ¹è·¯å¾„é•¿åº¦
 	 	String r = all.substring(l);
 	 	System.out.println(pre);
 	 	System.out.println(all);
@@ -150,11 +150,11 @@ public class Client {
 	 }
 	////////////////////////////////////////////
 	private void sendDir(Socket socket,String path,String src){
-		/**·¢ËÍÎÄ¼ş¼ĞĞÅÏ¢*/
+		/**å‘é€æ–‡ä»¶å¤¹ä¿¡æ¯*/
 		sender.sendMsg(Constants.DIR);
-		sender.sendMsg(getPath(path,src));	//Ïà¶ÔÂ·¾¶
+		sender.sendMsg(getPath(path,src));	//ç›¸å¯¹è·¯å¾„
 
-		/**·¢ËÍÎÄ¼ş¼ĞÎÄ¼şÁ÷*/
+		/**å‘é€æ–‡ä»¶å¤¹æ–‡ä»¶æµ*/
 		//sendFile(socket,path);
 	}
 	
@@ -163,7 +163,7 @@ public class Client {
 		if(!file.exists() || !file.isDirectory()){
 			return;
 		}
-		//·¢ËÍÎÄ¼ş¼Ğ¿ØÖÆ×Ö¶Î
+		//å‘é€æ–‡ä»¶å¤¹æ§åˆ¶å­—æ®µ
 		sendDir(socket,path,src);
 		//
 		File[] temp = file.listFiles();

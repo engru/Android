@@ -1,7 +1,7 @@
 package com.oppo.transfer.core.utils;
 
 public class Constants {
-	//¿ØÖÆ×Ö·û
+	//æŽ§åˆ¶å­—ç¬¦
 	
 	public static final String END		= "COMPLETE";
 	public static final String EXCEP	= "EXCEPTION";

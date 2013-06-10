@@ -3,12 +3,12 @@ package com.oppo.transfer.core.utils;
 import java.util.List;
 
 public class TransStateMachine{
-	//Íâ²¿Éè¶¨Ë¢ĞÂ£¬µ÷ÓÃ¸ü¸Ä×´Ì¬£¬×´Ì¬¸Ä±äºó£¬Ö´ĞĞ½çÃæ½ø¶ÈË¢ĞÂ²Ù×÷¡£
-	//Èç¹ûºóĞøÔö¼Ó×´Ì¬²Ù×÷£¬Ò²¿ÉÔÚ´ËÍê³É
-	//Init ,Á¬½Ó
-	//Negotiate ,Ğ­ÉÌ
-	//Transfer ,´«Êä
-	//Complete ,Íê³É
+	//å¤–éƒ¨è®¾å®šåˆ·æ–°ï¼Œè°ƒç”¨æ›´æ”¹çŠ¶æ€ï¼ŒçŠ¶æ€æ”¹å˜åï¼Œæ‰§è¡Œç•Œé¢è¿›åº¦åˆ·æ–°æ“ä½œã€‚
+	//å¦‚æœåç»­å¢åŠ çŠ¶æ€æ“ä½œï¼Œä¹Ÿå¯åœ¨æ­¤å®Œæˆ
+	//Init ,è¿æ¥
+	//Negotiate ,åå•†
+	//Transfer ,ä¼ è¾“
+	//Complete ,å®Œæˆ
 	public static final int Init 		= 0;
 	public static final int Negotiate	= 1;
 	public static final int Transfer	= 2;

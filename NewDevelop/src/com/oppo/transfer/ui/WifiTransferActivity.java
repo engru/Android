@@ -111,7 +111,7 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
     	mAppname.setOnClickListener(mBtnListener);
     	mAppname.setText("wifiTransfer:"+wifiUtil.getLocalIpAddress());
     	
-    	peernames.add("µ÷ÊÔ");
+    	peernames.add("è°ƒè¯•");
     	adapter = new ArrayAdapter<String>(this, R.layout.list_item_wifi_transfer,R.id.device_name, peernames);
     	lv = (ListView)findViewById(R.id.wifi_device_list);
     	lv.setAdapter(adapter);
@@ -140,7 +140,7 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
     			if (isWifiP2pEnabled) {
 
     				menu.add(Menu.FIRST, 99, 0,
-    						"ËÑË÷")
+    						"æœç´¢")
     						.setEnabled(true)
     						.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     			}
@@ -214,7 +214,7 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
     private void showDetailInfo(CharSequence device) {   
         new AlertDialog.Builder(this)   
         .setTitle("Device:" + device)               
-        .setPositiveButton("È·¶¨", null)   
+        .setPositiveButton("ç¡®å®š", null)   
         .show();   
     }   
     
@@ -332,9 +332,6 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 	 
 	Handler deviceHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-			
-			
-			// é—®ä¸‹äº¬å¼ºï¼Œåšè¿™äº›åˆ¤æ–­çš„åŸå›?
 			switch (msg.what) {
 			case 100://WHAT_NOTIFY_GET_PRODUCTS:
 				updateListView();

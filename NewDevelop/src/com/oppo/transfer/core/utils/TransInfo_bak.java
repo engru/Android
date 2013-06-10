@@ -23,7 +23,7 @@ public class TransInfo_bak {
 		fi.size = file.length();
 		
 		if(bl){
-			//·¢ËÍ
+			//å‘é€
 		}else{
 			return;
 		}
@@ -46,7 +46,7 @@ public class TransInfo_bak {
 			}
 		}
 		
-		//·¢ËÍ
+		//å‘é€
 		
 		
 		
@@ -66,9 +66,9 @@ public class TransInfo_bak {
 	}
 	
 	class FolderInfos{
-		FolderInfo folderInfo;		//Ä¿Â¼ĞÅÏ¢
-		List<FolderInfos> folder;	//×ÓÄ¿Â¼
-		List<FileInfo> file;		//Ä¿Â¼ÎÄ¼ş
+		FolderInfo folderInfo;		//ç›®å½•ä¿¡æ¯
+		List<FolderInfos> folder;	//å­ç›®å½•
+		List<FileInfo> file;		//ç›®å½•æ–‡ä»¶
 		
 		public FolderInfos(File file){
 			

@@ -9,12 +9,12 @@ public class FileTransfer {
 	//receiver
 	
 	
-	//建立连接
+	//寤虹珛杩炴帴
 	void initSocket(){
 		
 	}
 	
 	
-	//文件传输
+	//鏂囦欢浼犺緭
 	
 }

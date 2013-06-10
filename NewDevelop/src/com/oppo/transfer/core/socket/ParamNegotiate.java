@@ -1,8 +1,8 @@
 package com.oppo.transfer.core.socket;
 
 public class ParamNegotiate extends Negotiate {
-	//Ğ­ÉÌÎÄ¼şÃû
-	//½«ÎÄ¼şÃû£¬ÆäËû²ÎÊı·¢ËÍ¹ıÈ¥
+	//åå•†æ–‡ä»¶å
+	//å°†æ–‡ä»¶åï¼Œå…¶ä»–å‚æ•°å‘é€è¿‡å»
 	
 	
 }
