@@ -7,7 +7,9 @@ import java.util.List;
 import com.oppo.transfer.core.socket.Client;
 import com.oppo.transfer.core.socket.Server;
 import com.oppo.transfer.core.utils.Constants;
+import com.oppo.transfer.core.utils.TransInfo;
 import com.oppo.transfer.ui.lib.NotifyUtil;
+import com.oppo.transfer.utils.SystemUtil;
 import com.oppo.transfer.utils.WiFiDirectBroadcastReceiver;
 import com.oppo.transfer.utils.WifiUtil;
 import com.wkey.develop.R;
@@ -54,6 +56,7 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 	private Button mBtn_search;
 	private ImageButton mBtn_send;
 	private TextView mAppname;
+	private TransInfo transInfo;
 	
 	private NotifyUtil mNotifyUtil;
 	
@@ -119,6 +122,7 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
     }
     
     private void initFunc(){
+    	transInfo = new TransInfo();
     	new Thread(new Runnable(){
 			@Override
 			public void run() {
@@ -171,20 +175,26 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 			    		
 						@Override
 						public void run() {
-							String state = Constants.DIR;
-							String path = "/sdcard/sina";
-							List<String> paths = null;
+							//String state = Constants.DIR;
+							//String path = "/sdcard/sina";
+							//List<String> paths = null;
+							//Constants.P2P_IP = "";
 							
-							Constants.P2P_IP = "";
+						
+							transInfo.setIP(Constants.P2P_IP);
 							
 							//new Client(state,path,paths);
-							for(int i = 1; i<11;i++){
-								mNotifyUtil.updateNotification(i*10);
-								try {
-									new Thread().sleep(1000);
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+							new Client(transInfo);
+							
+							if(true){
+								for(int i = 1; i<11;i++){
+									mNotifyUtil.updateNotification(i*10);
+									try {
+										new Thread().sleep(1000);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
 								}
 							}
 							
@@ -227,7 +237,15 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
     	case 0:
     		//
     		//data.getdata
-    		System.out.println("onActivityresult:"+data.getStringExtra("SELECT_PATH"));
+    		String Url = data.getStringExtra("SELECT_PATH");
+    		System.out.println("onActivityresult:"+Url);
+    		String Path = SystemUtil.getRealPathFromURL(mContext, Url);
+    		//设置初始化 TransInfo 信息
+    		transInfo.setPath(Path);
+    		peernames.add(transInfo.getPath());
+    		updateList();
+    		//
+    		
     		//data.getStringArrayExtra(name);
     		break;
     	case 1:
@@ -328,6 +346,10 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 	            // you'll want to create a client thread that connects to the group
 	            // owner.
 	        }
+	}
+	 
+	public void updateList(){
+		deviceHandler.sendEmptyMessage(100);
 	}
 	 
 	Handler deviceHandler = new Handler() {

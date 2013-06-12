@@ -18,7 +18,7 @@ public class SocketUtils {
 	private static SocketUtils Instance = null;
 	private static ServerSocket ServerInstance = null;
 	private static Socket ClientInstance = null;
-	private static int communicationPort = 13267;
+	private static int communicationPort = Constants.DEFAULT_PORT;//13267;
 	
 	
 	
@@ -54,13 +54,39 @@ public class SocketUtils {
 	
 	
 	//client
-	public Socket getClientInstance(Context context) {
+	public Socket getClientInstance(Context mContext) {
 		if (ClientInstance == null) {
-			ClientInstance = createClient(context);
+			ClientInstance = createClient(mContext);
+		}
+		return ClientInstance;
+	}
+	
+	public Socket getClientInstance(String IP,int Port) {
+		if (ClientInstance == null) {
+			ClientInstance = createClient(IP,Port);
 		}
 		return ClientInstance;
 	}
 
+	private Socket createClient(String IP,int Port) {
+		// TODO Auto-generated method stub
+		//String serverIPAddress ;//= WifiTransferActivity.wifiUtil.getPeerIP("");
+		//serverIPAddress = Constants.P2P_IP;
+		
+		try {
+			
+			return new Socket(IP, Port);
+			
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
 	private Socket createClient(Context context) {
 		// TODO Auto-generated method stub
 		String serverIPAddress ;//= WifiTransferActivity.wifiUtil.getPeerIP("");

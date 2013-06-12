@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.List;
 
 import com.oppo.transfer.core.utils.Constants;
+import com.oppo.transfer.core.utils.TransInfo;
 import com.oppo.transfer.core.utils.TransInfo_bak;
 
 
@@ -32,6 +33,25 @@ public class Client {
 		//ReceiveFile(client);
 	}
 	
+	public Client(TransInfo transInfo){
+		setCtrState(transInfo);
+		
+		client = SocketUtils.getInstance().getClientInstance(transInfo.IP,transInfo.Port);
+		if(client!=null)
+        try {
+			sender = new FileSender(client);
+			System.out.println("createclient ok");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		else return;
+		send(client);
+		//ReceiveFile(client);
+	}
+	
+	
+	
 	private void send(Socket socket){
 		sendInfo(socket);	//确定同步模式还是异步模式
 		if(false){	//同步模式
@@ -50,6 +70,19 @@ public class Client {
 	String path = null;
 	List<String> paths = null;
 	
+	public void setCtrState(TransInfo transInfo){
+		if(transInfo.Path!=null){
+			File file = new File(transInfo.Path);
+			if(file.isFile()){
+				setCtrState(Constants.FILE,transInfo.Path,null);
+			}else if(file.isDirectory()){
+				setCtrState(Constants.DIR,transInfo.Path,null);
+			}
+		}else if(transInfo.Paths!=null){
+			setCtrState(Constants.DEFINED,null,transInfo.Paths);
+		}
+	}
+	
 	public void setCtrState(String state,String path,List<String> paths){
 		Constants.CTR_STATE = state;
 		this.path = path;
@@ -57,6 +90,7 @@ public class Client {
 			this.paths = paths;
 		}
 	}
+
 
 	
 	private void sendInfo(Socket socket){
