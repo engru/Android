@@ -43,7 +43,8 @@
     <color name="color_4">#91cb7f</color>
     <color name="color_5">#38cfea</color>
     <color name="color_6">#bc54cd</color>
-
+    
+    <color name="home_title_shadow_color1">#ffd4d3d3</color> <!-- 首页投影颜色 -->
     <!-- 自定义颜色 -->
     <color name="allnote_title_color">#eeeeee</color> <!-- 所有笔记标题颜色 -->
     <color name="allnote_text_color">#b0b0b0</color> <!-- 所有笔记具体日期文本颜色 -->
@@ -65,7 +66,7 @@
 
     <!-- Widget -->
     <color name="widget_position_total_color">#323f54</color> <!-- 位置/总个数颜色 -->
-    <color name="widget_time_color">#323f54</color> <!-- 位置/总个数颜色 -->
+    <color name="widget_time_color">#72323f54</color> <!-- 位置/总个数颜色 -->
     <color name="widget_content_color">#323f54</color> <!-- 位置/总个数颜色 -->
     <color name="widget_content_shadow_color">#ffffff</color>
     <!-- 关于 -->

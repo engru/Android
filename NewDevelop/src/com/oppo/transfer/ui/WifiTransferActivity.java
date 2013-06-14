@@ -9,6 +9,7 @@ import com.oppo.transfer.core.socket.Server;
 import com.oppo.transfer.core.utils.Constants;
 import com.oppo.transfer.core.utils.TransInfo;
 import com.oppo.transfer.ui.lib.NotifyUtil;
+import com.oppo.transfer.ui.lib.PopupWindowUtil;
 import com.oppo.transfer.utils.SystemUtil;
 import com.oppo.transfer.utils.WiFiDirectBroadcastReceiver;
 import com.oppo.transfer.utils.WifiUtil;
@@ -72,8 +73,6 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    mContext = this;
-	    TextView v = new TextView(this);
-	    v.setText("sdf");
 	    setContentView(R.layout.activity_wifi_transfer);
 	    wifiUtil = WifiUtil.getInstance(this, getMainLooper());
 	    mNotifyUtil = new NotifyUtil(this);
@@ -168,6 +167,8 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 					break;
 				case R.id.app_name_in_app:
 					mAppname.setText("wifiTransfer:"+wifiUtil.getLocalIpAddress());
+					//PopupWindowUtil.showWindow(mContext, findViewById(R.id.app_name_in_app));
+					PopupWindowUtil.show(mContext, findViewById(R.id.app_name_in_app));
 					break;
 				case R.id.btn_send:
 					mNotifyUtil.IssueNotification();

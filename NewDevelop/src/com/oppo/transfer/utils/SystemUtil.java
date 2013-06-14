@@ -5,6 +5,9 @@ import android.content.CursorLoader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 
 public class SystemUtil {
 	
@@ -37,5 +40,44 @@ public class SystemUtil {
 		//Uri fileUri = Uri.fromFile(file);  
 	}
 	*/
+	
+	
+	/**
+	 * 屏幕分辨率相关
+	 */
+	private static int scrWidth = 0;
+	private static int scrHeight = 0;
+	
+	public static int getWidth(Context ctx) {
+		if(scrWidth == 0) {
+			WindowManager wm  = (WindowManager)ctx.getSystemService("window");
+		      //具体返回对象是WindowMangerIml类
+		    Display display =   wm.getDefaultDisplay(); 
+		      
+		    DisplayMetrics dm = new DisplayMetrics();   
+		    display .getMetrics(dm);
+		    scrWidth = dm.widthPixels;
+		} 
+		return scrWidth;
+	}
+	
+	public static int getHeight(Context ctx){
+		if(scrHeight == 0) {
+			WindowManager wm  = (WindowManager)ctx.getSystemService("window");
+		      //具体返回对象是WindowMangerIml类
+		    Display display =   wm.getDefaultDisplay(); 
+		      
+		    DisplayMetrics dm = new DisplayMetrics();   
+		    display .getMetrics(dm);
+		    scrHeight = dm.heightPixels;
+		} 
+		return scrHeight;
+	}
+	
+	public static int getSy(){
+		return 0;
+	}
+	
+	
 
 }
