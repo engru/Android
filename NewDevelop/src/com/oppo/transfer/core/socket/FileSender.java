@@ -105,4 +105,10 @@ public class FileSender {
 		}
         System.out.println("filesendmsg:ok");
     }
+    
+    public String getMsg() throws IOException{
+    	String msg = socketReader.readLine();
+    	socketWriter.println(confirmationStamp);	//发送ok消息，表明已经接收到
+    	return msg;
+    }
 }

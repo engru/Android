@@ -1,5 +1,6 @@
 package com.oppo.transfer.ui;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.DataSetObserver;
@@ -33,6 +35,7 @@ import android.net.wifi.p2p.WifiP2pManager.ConnectionInfoListener;
 import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -126,7 +129,27 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				new Server();
+				/*Looper.prepare(); 
+				AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+				builder.setMessage("收到发送请求").setTitle("是否接收?");
+				builder.setPositiveButton("确认接收", new DialogInterface.OnClickListener() { 
+			        @Override 
+			        public void onClick(DialogInterface dialog, int which) {
+			        } 
+			    });
+				builder.setNegativeButton("取消", new DialogInterface.OnClickListener() { 
+			        @Override 
+			        public void onClick(DialogInterface dialog, int which) {
+			        } 
+			    });
+				
+				AlertDialog ad = builder.create();
+				ad.show();
+				Looper.loop();
+				*/
+				System.out.println("zzzzzzzzzzzz");
+				new Server(mContext);
+				
 			}
     		
     	}).start();
@@ -182,10 +205,10 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 							//Constants.P2P_IP = "";
 							
 						
-							transInfo.setIP(Constants.P2P_IP);
-							
+							//Constants.transInfo.setIP(Constants.P2P_IP);
+							Constants.transInfo.setIP("192.168.1.102");
 							//new Client(state,path,paths);
-							new Client(transInfo);
+							new Client(Constants.transInfo);
 							
 							if(true){
 								for(int i = 1; i<11;i++){
@@ -238,12 +261,13 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
     	case 0:
     		//
     		//data.getdata
-    		String Url = data.getStringExtra("SELECT_PATH");
-    		System.out.println("onActivityresult:"+Url);
-    		String Path = SystemUtil.getRealPathFromURL(mContext, Url);
+    		//String Url = data.getStringExtra("SELECT_PATH");
+    		//System.out.println("onActivityresult:"+Url);
+    		//String Path = SystemUtil.getRealPathFromURL(mContext, Url);
+    		String Path = "/sdcard/Movies";
     		//设置初始化 TransInfo 信息
-    		transInfo.setPath(Path);
-    		peernames.add(transInfo.getPath());
+    		Constants.transInfo.setPath(Path);
+    		peernames.add(Constants.transInfo.getPath());
     		updateList();
     		//
     		

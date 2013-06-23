@@ -116,4 +116,23 @@ public class FileReceiver {
         return msg;
     }
     
+    public void sendMsg(String msg){
+    	socketWriter.println(msg);
+    	try {
+			validateTransferConfirmation(socketReader.readLine());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    }
+    
+ 
+    
+    private void validateTransferConfirmation(String receivedLine) throws IOException {
+        if (!receivedLine.equals(confirmationStamp)) {
+            throw new IOException("Transfer confirmation not received.");
+        }
+    }
+    
 }

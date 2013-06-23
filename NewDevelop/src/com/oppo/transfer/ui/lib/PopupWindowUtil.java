@@ -1,6 +1,8 @@
 package com.oppo.transfer.ui.lib;
 
+import com.oppo.transfer.ui.WindowNetworkSelect;
 import com.oppo.transfer.utils.SystemUtil;
+import com.oppo.transfer.utils.WifiUtil;
 import com.wkey.develop.R;
 
 import android.content.Context;
@@ -13,7 +15,9 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 public class PopupWindowUtil {
@@ -86,7 +90,7 @@ public class PopupWindowUtil {
 		ViewGroup menuView = (ViewGroup) mLayoutInflater.inflate(  
 		                    R.layout.window, null, true); 
 		*/
-		int Height = 1050;
+		int Height = 550;
 		pw = new PopupWindow(layout,LayoutParams.MATCH_PARENT, Height);//LayoutParams.WRAP_CONTENT);
 		//pw.setWidth(SystemUtil.getWidth(mContext));
 		
@@ -94,8 +98,9 @@ public class PopupWindowUtil {
 		pw.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.ic_launcher));
 		
 		//pw.setFocusable(true);
-		
-		initViews(layout);
+		WindowNetworkSelect wn = new WindowNetworkSelect();
+		wn.init(mContext, layout);
+		//initViews(mContext,layout);
 		
 		//pw.setAnimationStyle(R.style.AnimationPreview);	//动画
 		
@@ -115,12 +120,47 @@ public class PopupWindowUtil {
 				return false;
 			}
 		});
-		pw.showAtLocation(parent, Gravity.LEFT, 0, -SystemUtil.getHeight(mContext)/2+340/2+Height/2);
+		pw.showAtLocation(parent, Gravity.LEFT, 0, -SystemUtil.getHeight(mContext)/2+340+Height/2);
 	}
 
-	private static void initViews(View layout) {
+	private static void initViews(Context mContext,View layout) {
 		// TODO Auto-generated method stub
+		//全局信息栏
+		ImageView iv 	= (ImageView)layout.findViewById(R.id.network_type);
+		TextView ssid 	= (TextView)layout.findViewById(R.id.network_ssid);
+		TextView ip 	= (TextView)layout.findViewById(R.id.network_ip);
+		TextView peer_ip= (TextView)layout.findViewById(R.id.network_peer_ip);
 		
+		//TabHost 栏
+		TabHost th = (TabHost)layout.findViewById(android.R.id.tabhost);
+		th.setup();
+		th.addTab(th.newTabSpec("type").setIndicator("wifi direct").setContent(R.id.tab1));
+		th.addTab(th.newTabSpec("type").setIndicator("hotspot").setContent(R.id.tab2));
+		th.addTab(th.newTabSpec("type").setIndicator("wifi").setContent(R.id.tab3));
+		
+		//检测网络
+		if(WifiUtil.checkNetwork(mContext)){
+			System.out.println("network ok");
+			//if(WifiUtil.isWifiWorking(mContext)){
+			//	System.out.println("network wifi");
+			//}else{
+			//	
+			//}
+			System.out.println(WifiUtil.getNetworkType(mContext));
+		}else {
+			//wifi direct
+			
+		}
+		
+		//wifi Direct
+		
+		
+		
+		
+		
+		ip.setText(WifiUtil.getLocalIpAddress());
+		peer_ip.setText(WifiUtil.getPeerIP(""));
+
 	}
 
 }

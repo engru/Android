@@ -13,6 +13,8 @@ import org.apache.http.conn.util.InetAddressUtils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pManager;
@@ -182,7 +184,7 @@ public class WifiUtil {
 			Log.e(TAG,"WifiPreference IpAddress---error-" + e.toString());
 		}
 		
-		return ""; 
+		return "null"; 
 	}
 	
 	/*
@@ -202,4 +204,62 @@ public class WifiUtil {
 			+ "." + (i >> 24 & 0xFF);
 	}
 	 */
+	
+	
+	/**
+	 * 检测网络
+	 */
+	public static boolean checkNetwork(Context ctx){
+		ConnectivityManager connectivityManager = (ConnectivityManager) ctx
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+		
+		if(info == null || !info.isConnected()){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	/**
+	 * 判断当前是否为wifi网络
+	 * 
+	 * @param ctx
+	 * @return
+	 */
+	public static boolean isWifiWorking(Context ctx) {
+		ConnectivityManager connectivityManager = (ConnectivityManager) ctx
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+		if (activeNetInfo != null && activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static int getNetworkType(Context ctx) {
+		ConnectivityManager connectivityManager = (ConnectivityManager) ctx
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+		if (activeNetInfo != null) {
+			return activeNetInfo.getType();
+		}
+		return -1;//TYPE_NONE
+	}
+	
+	
+	/**
+	 * P2p
+	 */
+	public static boolean getP2pInfo(Context mContext){
+		WifiP2pManager p2pmgr = (WifiP2pManager)mContext.getSystemService(Context.WIFI_P2P_SERVICE);
+		//if(manager==null)
+		//	manager= new WifiUtil(mContext, null);
+		p2pmgr.initialize(mContext, null, null);
+		//p2pmgr
+		
+		return false;
+		
+	}
+	
 }

@@ -53,6 +53,18 @@ public class Client {
 	
 	
 	private void send(Socket socket){
+		try {
+			String Req = requesttosend();
+			if(Req.equals(Constants.ALLOW)){
+				
+			}else if(Req.equals(Constants.DENY)){
+				return;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
 		sendInfo(socket);	//确定同步模式还是异步模式
 		if(false){	//同步模式
 			
@@ -67,6 +79,13 @@ public class Client {
 		}
 	}
 	
+	private String requesttosend() throws IOException {
+		// TODO Auto-generated method stub
+		sender.sendMsg(Constants.REQSEND);
+		//等待接收的返回状态
+		return sender.getMsg();
+	}
+
 	String path = null;
 	List<String> paths = null;
 	

@@ -106,6 +106,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
 
 			Log.d(TAG, "WIFI_P2P_CONNECTION_CHANGED_ACTION");
 			if (manager == null) {
+				Log.e(TAG,"wifi p2p manager is null");
 				return;
 			}
 
@@ -123,7 +124,9 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
 				// MainFragment fragment = (MainFragment) activity
 				// .getFragmentManager().findFragmentById(R.id.fragment_main);
 				// manager.requestConnectionInfo(channel, fragment);
+				Log.e(TAG,"wifi p2p manager is null1");
 				manager.requestConnectionInfo(channel, activity);
+				Log.e(TAG,"wifi p2p manager is null2");
 			} else {
 				// It's a disconnect
 				// Log.d(TAG, "It's a disconnect. Now issuing teardown.");

@@ -2,7 +2,9 @@ package com.oppo.transfer.core.utils;
 
 public class Constants {
 	//控制字符
-	
+	public static final String REQSEND	= "REQUESTSEND";
+	public static final String ALLOW	= "ALLOW";
+	public static final String DENY		= "DENY";
 	public static final String END		= "COMPLETE";
 	public static final String EXCEP	= "EXCEPTION";
 	public static final String FILE		= "FILE";
@@ -16,5 +18,6 @@ public class Constants {
 	public static String P2P_IP 	= "192.168.1.1";
 	public static int DEFAULT_PORT 	= 13267;
 	
+	public static TransInfo transInfo = new TransInfo();
 	
 }
