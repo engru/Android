@@ -6,8 +6,11 @@ import java.net.Socket;
 import java.util.List;
 
 import com.oppo.transfer.core.utils.Constants;
+import com.oppo.transfer.core.utils.StateListener;
 import com.oppo.transfer.core.utils.TransInfo;
 import com.oppo.transfer.core.utils.TransInfo_bak;
+import com.oppo.transfer.core.utils.TransStateMachine;
+import com.oppo.transfer.ui.lib.NotifyUtil;
 
 
 
@@ -15,19 +18,22 @@ public class Client {
 	Socket client = null;
 	TransInfo_bak transInfo = null;
 	FileSender sender = null;
+	TransStateMachine mStateMachine;
 	
 	public Client(String state,String path,List<String> paths){
 		//setCtrState(Constants.DIR,path,null);
 		setCtrState(state,path,paths);
+		mStateMachine = new TransStateMachine();
+		
 		client = SocketUtils.getInstance().getClientInstance(null);
 		if(client!=null)
-        try {
-			sender = new FileSender(client);
-			System.out.println("createclient ok");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	        try {
+				sender = new FileSender(client);
+				System.out.println("createclient ok");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		else return;
 		send(client);
 		//ReceiveFile(client);
@@ -35,16 +41,56 @@ public class Client {
 	
 	public Client(TransInfo transInfo){
 		setCtrState(transInfo);
+		mStateMachine = new TransStateMachine();
 		
 		client = SocketUtils.getInstance().getClientInstance(transInfo.IP,transInfo.Port);
 		if(client!=null)
-        try {
-			sender = new FileSender(client);
-			System.out.println("createclient ok");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	        try {
+				sender = new FileSender(client);
+				System.out.println("createclient ok");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		else return;
+		send(client);
+		//ReceiveFile(client);
+	}
+	
+	public Client(TransInfo transInfo,StateListener sl){
+		setCtrState(transInfo);
+		mStateMachine = new TransStateMachine();
+		registerSateListener(sl);
+		
+		client = SocketUtils.getInstance().getClientInstance(transInfo.IP,transInfo.Port);
+		if(client!=null)
+	        try {
+				sender = new FileSender(client,mStateMachine);
+				System.out.println("createclient ok");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		else return;
+		send(client);
+		//ReceiveFile(client);
+	}
+	
+	
+	public Client(TransInfo transInfo,List<StateListener> sl){
+		setCtrState(transInfo);
+		mStateMachine = new TransStateMachine();
+		registerSateListener(sl);
+		
+		client = SocketUtils.getInstance().getClientInstance(transInfo.IP,transInfo.Port);
+		if(client!=null)
+	        try {
+				sender = new FileSender(client,mStateMachine);
+				System.out.println("createclient ok");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		else return;
 		send(client);
 		//ReceiveFile(client);
@@ -52,12 +98,25 @@ public class Client {
 	
 	
 	
+	
+	//--------------------------------------------------------------------------------//
+	
+	public void registerSateListener(StateListener sl){
+		mStateMachine.registerSateListener(sl);
+	}
+	public void registerSateListener(List<StateListener> sl){
+		mStateMachine.registerSateListener(sl);
+	}
+	
+	
 	private void send(Socket socket){
+		mStateMachine.setState(TransStateMachine.Negotiate);
 		try {
 			String Req = requesttosend();
 			if(Req.equals(Constants.ALLOW)){
 				
 			}else if(Req.equals(Constants.DENY)){
+				sendComplete(socket); //结束控制符
 				return;
 			}
 		} catch (IOException e) {
@@ -118,14 +177,23 @@ public class Client {
 	
 	private void sendComplete(Socket socket){
 		sender.sendMsg(Constants.END);
+		mStateMachine.setState(TransStateMachine.Complete);
+		try {
+			socket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private void sendContent(Socket socket){
 		//fileToTransfer
-
+		mStateMachine.setState(TransStateMachine.Transfer);
 		sender.sendMsg(Constants.CTR_STATE);
-
-		if(Constants.CTR_STATE.equals(Constants.FILE)){	//file 为文件
+		if(Constants.CTR_STATE==null){
+			sendComplete(socket);
+			return;
+		}else if(Constants.CTR_STATE.equals(Constants.FILE)){	//file 为文件
 			//发送文件信息，包括 文件名，文件大小，filename,size
 			sendFile(socket,path);
 			return;
@@ -137,7 +205,7 @@ public class Client {
 			//folderStruct, fileNumber,filename array, file size array
 			int i = path.lastIndexOf("/");
 			String src = path.substring(0,i+1);
-			System.out.println(src);
+			//System.out.println(src);
 			sendFolder(socket,path,src);
 			
 		}else if(Constants.CTR_STATE.equals(Constants.DEFINED)){
@@ -174,11 +242,12 @@ public class Client {
 			sender.sendMsg(getPath(path, src, filename));
 		}
 		
-		//
-		//System.out.println("path");
-		//
+		
+		System.out.println(path);
+		
         try {
             sender.sendFile(path);
+            System.out.println("kkkkkkkkkkkkkkkkkkkkkk");
         } catch (Exception ex) {
             System.out.println("Error communicating with client: " + ex.getMessage());
         }
@@ -197,8 +266,8 @@ public class Client {
 	 {// all为绝对路径，pre为根
 	 	int l = pre.length();// 根路径长度
 	 	String r = all.substring(l);
-	 	System.out.println(pre);
-	 	System.out.println(all);
+	 	//System.out.println(pre);
+	 	//System.out.println(all);
 	 	return r;
 	 }
 	////////////////////////////////////////////
@@ -220,12 +289,16 @@ public class Client {
 		sendDir(socket,path,src);
 		//
 		File[] temp = file.listFiles();
+		System.out.println("temp:"+temp.length);
 		for(int i = 0 ; i<temp.length;i++){
 			if(temp[i].isFile()){
+				System.out.println("temp:1");
 				sendFile(socket,temp[i].getAbsolutePath(),src,temp[i].getName());
 			}else if(temp[i].isDirectory()){
+				System.out.println("temp:2");
 				sendFolder(socket,temp[i].getAbsolutePath(),src);
 			}
+			System.out.println("temp:3");
 		}
 		
 	}

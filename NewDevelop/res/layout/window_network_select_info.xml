@@ -113,6 +113,11 @@
                                 android:id="@+id/tab3"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" >
+                                <ListView
+                                    android:id="@+id/list_wifi_device"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                </ListView>
                             </LinearLayout>
                         </FrameLayout>
                     </LinearLayout>

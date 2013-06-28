@@ -1,6 +1,7 @@
 package com.oppo.transfer.ui.lib;
 
 import com.oppo.transfer.core.utils.StateListener;
+import com.oppo.transfer.core.utils.TransStateMachine;
 import com.oppo.transfer.utils.Constants;
 import com.wkey.develop.R;
 
@@ -86,18 +87,21 @@ public class NotifyUtil implements StateListener{
 	
 	int historyProgress = 0;
 	static Notification.Builder mBuilderProgress = null;
-	public void updateNotification(int progressValue){
+	public void updateNotification(String state,int progressValue){
 		if(mBuilderProgress == null)
 			mBuilderProgress = new Notification.Builder(mContext)
-				.setContentTitle("progess")
+				.setContentTitle(state)
 				.setContentText("content prog")
 				.setSmallIcon(R.drawable.arrow);
-		if(progressValue == 100)
+		mBuilderProgress.setContentTitle(state);
+		if(progressValue == 100 || progressValue == 0)
 			mBuilderProgress.setProgress(0, 0, false);
 		else
 			mBuilderProgress.setProgress(100, progressValue, false);
 		
-		Notification mNotification = mBuilder.getNotification();
+		
+		mNotificationManager.notify(Constants.APPLICATION_NOTIFICATION_ID, mBuilderProgress.getNotification());
+		/*Notification mNotification = mBuilder.getNotification();
 		if (historyProgress != progressValue) {
 			if (mNotification == null || mNotificationManager == null) {
 				return;
@@ -113,7 +117,7 @@ public class NotifyUtil implements StateListener{
 			
 			historyProgress = progressValue;
 			mNotificationManager.notify(Constants.APPLICATION_NOTIFICATION_ID, mBuilderProgress.getNotification());
-		}
+		}*/
 	}
 	
 	
@@ -146,7 +150,21 @@ public class NotifyUtil implements StateListener{
 	@Override
 	public void updateState(int state,int progressValue) {
 		// TODO Auto-generated method stub
-		updateNotification(progressValue);
+		
+		updateNotification(parserState(state),progressValue);
+	}
+	
+	String parserState(int state){
+		if(state==TransStateMachine.Init)
+			return "Init";
+		else if(state==TransStateMachine.Negotiate)
+			return "Negotiate";
+		else if(state==TransStateMachine.Transfer)
+			return "Transfer";
+		else if(state==TransStateMachine.Complete)
+			return "complete";
+		else return "unknow state";
+		
 	}
 	
 	

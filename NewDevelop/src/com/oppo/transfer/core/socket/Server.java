@@ -15,6 +15,8 @@ import android.content.DialogInterface;
 import android.os.Looper;
 
 import com.oppo.transfer.core.utils.Constants;
+import com.oppo.transfer.core.utils.StateListener;
+import com.oppo.transfer.core.utils.TransStateMachine;
 import com.oppo.transfer.ui.WifiTransferActivity;
 
 public class Server {
@@ -25,6 +27,7 @@ public class Server {
 	private ExecutorService exec; 
 	
 	FileReceiver fr = null;
+	TransStateMachine mStateMachine;
 	
 	public Server(){
 		server = SocketUtils.getInstance().getServerInstance(null);
@@ -33,11 +36,15 @@ public class Server {
 	
 	public Server(Context mContext){
 		this.mContext = mContext;
-		if(mContext!=null){
-			System.out.println("mcontext "+mContext.toString());
-		}else{
-			System.out.println("mcontext null");
-		}
+		server = SocketUtils.getInstance().getServerInstance(null);
+		listening();
+	}
+	
+	public Server(Context mContext,StateListener sl){
+		this.mContext = mContext;
+		mStateMachine = new TransStateMachine();
+		mStateMachine.registerSateListener(sl);
+		
 		server = SocketUtils.getInstance().getServerInstance(null);
 		listening();
 	}
@@ -48,7 +55,7 @@ public class Server {
         while (true) {
             try {
 				Socket client = server.accept();
-				fr = new FileReceiver(client);/////////////////
+				fr = new FileReceiver(client,mStateMachine);/////////////////
 	            if(false){
 	                //sendFileToClient(socketToClient);
 	                //socketToClient.close();
@@ -86,6 +93,7 @@ public class Server {
 
 		private void receiveInfo() throws IOException {
 			// TODO Auto-generated method stub
+			mStateMachine.setState(TransStateMachine.Negotiate);
 			getSendReq();
 			/*String CTR = null; 
 			while(true){
@@ -128,13 +136,21 @@ public class Server {
 					        // 点击“确认”后的操作 
 				        	//返回确认
 				        	dialog.dismiss();
-				        	fr.sendMsg(Constants.ALLOW);
-				        	try {
-								receiveContent();
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+				        	new Thread(new Runnable(){
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+						        	fr.sendMsg(Constants.ALLOW);
+						        	try {
+										receiveContent();
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								}
+				        		
+				        	}).start();
+
 
 				        } 
 				    });
@@ -142,6 +158,13 @@ public class Server {
 				        @Override 
 				        public void onClick(DialogInterface dialog, int which) {
 				        	fr.sendMsg(Constants.DENY);
+				        	try {
+								if(fr.getMsg().equals(Constants.END))
+									receiveComplete();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 				        	dialog.dismiss();
 				        } 
 				    });
@@ -157,13 +180,17 @@ public class Server {
 		}
 
 		private void receiveContent() throws IOException{
+			mStateMachine.setState(TransStateMachine.Transfer);
 			String CTR = null;
 			while(true){
 				CTR = fr.getMsg();
 				//是文件还是文件夹，
-				if(CTR.equals(Constants.END) || CTR.equals(Constants.EXCEP)){
+				if(CTR == null){
+					receiveComplete();
+					return;
+				}else if(CTR.equals(Constants.END) || CTR.equals(Constants.EXCEP)){
 					//完成
-					socket.close();
+					receiveComplete();
 					return;
 				}else if(CTR.equals(Constants.FILE)){
 					ReceiveFile(socket);
@@ -176,6 +203,11 @@ public class Server {
 				
 				//正式传输
 			}
+		}
+		
+		private void receiveComplete() throws IOException{
+			socket.close();
+        	mStateMachine.setState(TransStateMachine.Complete);
 		}
 		
 	}

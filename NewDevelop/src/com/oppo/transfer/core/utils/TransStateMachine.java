@@ -1,6 +1,9 @@
 package com.oppo.transfer.core.utils;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import android.util.Log;
 
 public class TransStateMachine{
 	//外部设定刷新，调用更改状态，状态改变后，执行界面进度刷新操作。
@@ -14,31 +17,43 @@ public class TransStateMachine{
 	public static final int Transfer	= 2;
 	public static final int Complete	= 3;
 	
-	private List<StateListener> sl;
-	private int state;
-	private int progress;
+	private List<StateListener> sl = new ArrayList<StateListener>();
+	private int CURRENT_STATE = Init;
+	private int PROGRESS = 0;
 	
 	public TransStateMachine(){
 		
 	}
 	
 	
-	void registerSateListener(StateListener sl){
+	public void registerSateListener(StateListener sl){
 		this.sl.add(sl);
 		//this.sl = sl;
 	}
-
+	
+	public void registerSateListener(List<StateListener> sl){
+		this.sl.addAll(sl);
+		//this.sl = sl;
+	}
 	
 	
-	void setState(){
+	public void setState(int state){
+		CURRENT_STATE = state;
 		update();
-		
+	}
+	
+	public void setState(int state,int progress){
+		//System.out.println("state:"+state+"|"+progress);
+		CURRENT_STATE = state;
+		PROGRESS = progress;
+		update();
 	}
 	
 	void update(){
-		for(StateListener sl : this.sl){
-			sl.updateState(state , progress);
-		}
+		if(sl!=null)
+			for(StateListener sl : this.sl){
+				sl.updateState(CURRENT_STATE , PROGRESS);
+			}
 	}
 	
 	

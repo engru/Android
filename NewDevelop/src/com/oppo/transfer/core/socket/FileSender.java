@@ -26,6 +26,11 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import android.util.Log;
+
+import com.oppo.transfer.core.utils.Constants;
+import com.oppo.transfer.core.utils.TransStateMachine;
+
 public class FileSender {
 
     private final String confirmationStamp = "OK";
@@ -33,12 +38,20 @@ public class FileSender {
     private BufferedReader socketReader;
     private PrintWriter socketWriter;
     private OutputStream outputStreamOnSocket;
+    
+    private TransStateMachine mStateMachine = null;
 
     public FileSender(Socket socket) throws IOException {
         communicationSocket = socket;
         socketReader = new BufferedReader(new InputStreamReader(communicationSocket.getInputStream()));
         outputStreamOnSocket = communicationSocket.getOutputStream();
         socketWriter = new PrintWriter(outputStreamOnSocket, true);
+    }
+    
+    public FileSender(Socket socket,TransStateMachine mStateMachine) throws IOException {
+    	this(socket);
+    	this.mStateMachine = mStateMachine;
+    	
     }
 
     public void sendFile(String filePath) throws IOException {
@@ -64,7 +77,8 @@ public class FileSender {
     }
     
     private void transferFileToClient(String filePath, long fileLength) throws FileNotFoundException, IOException {
-        sendFileToClient(filePath, fileLength);
+    	sendFileToClient(filePath);
+    	//sendFileToClient(filePath, fileLength);
         checkForTransferConfirmation();
     }
     
@@ -79,7 +93,7 @@ public class FileSender {
     }
 
     private void validateTransferConfirmation(String receivedLine) throws IOException {
-        if (!receivedLine.equals(confirmationStamp)) {
+        if (receivedLine!=null && !receivedLine.equals(confirmationStamp)) {
             throw new IOException("Transfer confirmation not received.");
         }
     }
@@ -94,6 +108,35 @@ public class FileSender {
         outputStreamOnSocket.flush();
     }
     
+    private void sendFileToClient(String filePath) throws IOException{
+    	FileInputStream fis = null;
+    	File file = new File(filePath);
+    	byte[] buffer = new byte[Constants.BUFFER_SIZE];
+		int count = 0;
+		long total = 0;
+    	// Read data from file
+		fis = new FileInputStream(file);
+		if(mStateMachine!=null)
+			mStateMachine.setState(TransStateMachine.Transfer,0);
+		// Write data into Outputstream
+		while ((count = fis.read(buffer)) != -1) {
+
+			outputStreamOnSocket.write(buffer, 0, count);
+//			if (DBG) Log.d(TAG, "write " + count + " Byte");
+			total += count;
+			if(mStateMachine!=null)
+				mStateMachine.setState(TransStateMachine.Transfer,(int)(total*100/file.length()));
+		}
+		if (count == -1 && total != file.length()) {
+			Log.e("FileSender", "Send File Error");
+		}
+		System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+		// Try to flush cash
+		outputStreamOnSocket.flush();
+		fis.close();
+		System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+    }
+    
     public void sendMsg(String msg){
     	System.out.println("filesendmsg:"+msg);
         socketWriter.println(msg);
@@ -103,7 +146,7 @@ public class FileSender {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        System.out.println("filesendmsg:ok");
+        //System.out.println("filesendmsg:ok");
     }
     
     public String getMsg() throws IOException{

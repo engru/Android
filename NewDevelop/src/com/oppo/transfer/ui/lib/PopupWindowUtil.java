@@ -90,7 +90,7 @@ public class PopupWindowUtil {
 		ViewGroup menuView = (ViewGroup) mLayoutInflater.inflate(  
 		                    R.layout.window, null, true); 
 		*/
-		int Height = 550;
+		int Height = SystemUtil.getHeight(mContext)/2;
 		pw = new PopupWindow(layout,LayoutParams.MATCH_PARENT, Height);//LayoutParams.WRAP_CONTENT);
 		//pw.setWidth(SystemUtil.getWidth(mContext));
 		
@@ -120,7 +120,7 @@ public class PopupWindowUtil {
 				return false;
 			}
 		});
-		pw.showAtLocation(parent, Gravity.LEFT, 0, -SystemUtil.getHeight(mContext)/2+340+Height/2);
+		pw.showAtLocation(parent, Gravity.LEFT | Gravity.TOP, 0, SystemUtil.getStatusBarHeight(mContext)+parent.getHeight());//-SystemUtil.getHeight(mContext)/2+340+Height/2);
 	}
 
 	private static void initViews(Context mContext,View layout) {

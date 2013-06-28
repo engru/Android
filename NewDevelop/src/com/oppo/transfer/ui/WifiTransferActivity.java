@@ -8,7 +8,9 @@ import java.util.List;
 import com.oppo.transfer.core.socket.Client;
 import com.oppo.transfer.core.socket.Server;
 import com.oppo.transfer.core.utils.Constants;
+import com.oppo.transfer.core.utils.StateListener;
 import com.oppo.transfer.core.utils.TransInfo;
+import com.oppo.transfer.ui.adapter.TransferArrayAdapter;
 import com.oppo.transfer.ui.lib.NotifyUtil;
 import com.oppo.transfer.ui.lib.PopupWindowUtil;
 import com.oppo.transfer.utils.SystemUtil;
@@ -53,7 +55,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class WifiTransferActivity extends BaseActivity implements PeerListListener ,ConnectionInfoListener {
+public class WifiTransferActivity extends BaseActivity implements StateListener,PeerListListener ,ConnectionInfoListener {
 	public static final String TAG = "WifiTransferActivity";
 	private Context mContext;
 	private Button mBtn_select;
@@ -117,7 +119,7 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
     	mAppname.setText("wifiTransfer:"+wifiUtil.getLocalIpAddress());
     	
     	peernames.add("调试");
-    	adapter = new ArrayAdapter<String>(this, R.layout.list_item_wifi_transfer,R.id.device_name, peernames);
+    	adapter = new TransferArrayAdapter<String>(this, R.layout.list_item_wifi_transfer,R.id.device_name, peernames);
     	lv = (ListView)findViewById(R.id.wifi_device_list);
     	lv.setAdapter(adapter);
     	lv.setOnItemClickListener(mItemListener);
@@ -148,7 +150,7 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 				Looper.loop();
 				*/
 				System.out.println("zzzzzzzzzzzz");
-				new Server(mContext);
+				new Server(mContext,mNotifyUtil);
 				
 			}
     		
@@ -158,7 +160,7 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
     
     
     ///////////////////////////////////////////////
-    ArrayAdapter<String> adapter ;
+    TransferArrayAdapter<String> adapter ;
     
     boolean isWifiP2pEnabled = true;
  
@@ -186,15 +188,16 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 					break;
 				case R.id.wifi_search:
 					//to do:
-					discoverPeers();
+					//discoverPeers();
+					
 					break;
 				case R.id.app_name_in_app:
 					mAppname.setText("wifiTransfer:"+wifiUtil.getLocalIpAddress());
 					//PopupWindowUtil.showWindow(mContext, findViewById(R.id.app_name_in_app));
-					PopupWindowUtil.show(mContext, findViewById(R.id.app_name_in_app));
+					PopupWindowUtil.show(mContext, findViewById(R.id.head));//.app_name_in_app));
 					break;
 				case R.id.btn_send:
-					mNotifyUtil.IssueNotification();
+					//mNotifyUtil.IssueNotification();
 			    	new Thread(new Runnable(){
 			    		
 						@Override
@@ -206,11 +209,13 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 							
 						
 							//Constants.transInfo.setIP(Constants.P2P_IP);
-							Constants.transInfo.setIP("192.168.1.102");
 							//new Client(state,path,paths);
-							new Client(Constants.transInfo);
-							
-							if(true){
+							List<StateListener> ls = new ArrayList<StateListener>();
+							ls.add(mNotifyUtil);
+							ls.add((StateListener) mContext);
+							new Client(Constants.transInfo,ls);
+							//cl.registerSateListener(mNotifyUtil);
+							/*if(true){
 								for(int i = 1; i<11;i++){
 									mNotifyUtil.updateNotification(i*10);
 									try {
@@ -220,7 +225,7 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 										e.printStackTrace();
 									}
 								}
-							}
+							}*/
 							
 							
 						}
@@ -398,6 +403,18 @@ public class WifiTransferActivity extends BaseActivity implements PeerListListen
 			adapter.notifyDataSetChanged();
 		}
 	};
+
+	/*
+	 * StateListener for TransferStateMachine state update (non-Javadoc)
+	 * @see com.oppo.transfer.core.utils.StateListener#updateState(int, int)
+	 */
+	@Override
+	public void updateState(int state, int value) {
+		// TODO Auto-generated method stub
+		adapter.setProgress(0, value, 1);
+		System.out.println(value);
+		deviceHandler.sendEmptyMessage(100);
+	}
 	
 	
 	

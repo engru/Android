@@ -1,8 +1,10 @@
 package com.oppo.transfer.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
@@ -74,8 +76,11 @@ public class SystemUtil {
 		return scrHeight;
 	}
 	
-	public static int getSy(){
-		return 0;
+	public static int getStatusBarHeight(Context ctx){
+		Rect frame = new Rect();
+		((Activity)ctx).getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+		//System.out.println(frame.top+"|"+frame.bottom+"|"+frame.left+"|"+frame.right);
+		return frame.top;
 	}
 	
 	

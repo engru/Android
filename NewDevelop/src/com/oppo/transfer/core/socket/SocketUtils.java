@@ -17,7 +17,7 @@ public class SocketUtils {
 	private static final String TAG = "SocketUtils";
 	private static SocketUtils Instance = null;
 	private static ServerSocket ServerInstance = null;
-	private static Socket ClientInstance = null;
+	//private static Socket ClientInstance = null;
 	private static int communicationPort = Constants.DEFAULT_PORT;//13267;
 	
 	
@@ -55,17 +55,21 @@ public class SocketUtils {
 	
 	//client
 	public Socket getClientInstance(Context mContext) {
-		if (ClientInstance == null) {
+		/*if (ClientInstance == null) {
 			ClientInstance = createClient(mContext);
 		}
 		return ClientInstance;
+		*/
+		return createClient(mContext);
 	}
 	
 	public Socket getClientInstance(String IP,int Port) {
-		if (ClientInstance == null) {
+		/*if (ClientInstance == null) {
 			ClientInstance = createClient(IP,Port);
 		}
 		return ClientInstance;
+		*/
+		return createClient(IP, Port);
 	}
 
 	private Socket createClient(String IP,int Port) {

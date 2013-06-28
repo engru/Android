@@ -1,4 +1,4 @@
-package com.oppo.transfer.sysf.wifidirect;
+package com.oppo.transfer.sysf.wifi;
 
 import com.oppo.transfer.ui.WifiTransferActivity;
 
@@ -15,33 +15,22 @@ import android.util.Log;
 /**
  * A BroadcastReceiver that notifies of important Wi-Fi p2p events.
  */
-public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
+public class WiFiBroadcastReceiver extends BroadcastReceiver {
 	private static String TAG = "WiFiDirectBroadcastReceiver";
     private WifiP2pManager mManager;
     private Channel mChannel;
     //private Activity mActivity;
-    private WifiDirectFunctions mWifiDirectFunctions;
-    
-    
-    public WiFiDirectBroadcastReceiver(WifiP2pManager manager, Channel channel) {
-        super();
-        this.mManager = manager;
-        this.mChannel = channel;
-    }
+    private WifiFunctions mWifiFunctions;
 
-    public WiFiDirectBroadcastReceiver(WifiP2pManager manager, Channel channel,
-            IWifiDirectActionListener mActionListener) {
+    public WiFiBroadcastReceiver(WifiP2pManager manager, Channel channel,
+            IWifiActionListener mActionListener) {
         super();
         this.mManager = manager;
         this.mChannel = channel;
         //this.mActivity = activity;
-        this.mWifiDirectFunctions = new WifiDirectFunctions(mActionListener);
+        this.mWifiFunctions = new WifiFunctions(mActionListener);
     }
 
-    public void InitFunctions(IWifiDirectActionListener mActionListener){
-    	this.mWifiDirectFunctions = new WifiDirectFunctions(mActionListener);
-    }
-    
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
@@ -72,7 +61,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
 				}
 			});*/
 			if (mManager != null ) {
-				mManager.requestPeers(mChannel, mWifiDirectFunctions);
+				mManager.requestPeers(mChannel, mWifiFunctions);
 			} else {
 				Log.e(TAG, "LEVEL 1 EXCEPTION");
 			}
@@ -90,7 +79,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             if (networkInfo.isConnected()) {
                 // we are connected with the other device, request connection
                 // info to find group owner IP
-                mManager.requestConnectionInfo(mChannel, mWifiDirectFunctions);
+                mManager.requestConnectionInfo(mChannel, mWifiFunctions);
             } else {
                 // It's a disconnect
             }

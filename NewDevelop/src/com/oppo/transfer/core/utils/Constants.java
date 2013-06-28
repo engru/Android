@@ -13,10 +13,14 @@ public class Constants {
 	
 	public static final String ONLYFILE	= "ONLYFILE";
 	
+	
+	public final static int BUFFER_SIZE = 1024 * 10 * 10;//100k
+	
 	//默认参数
 	public static String CTR_STATE 	= null;
-	public static String P2P_IP 	= "192.168.1.1";
+	public static String P2P_IP 	= "192.168.43.147";
 	public static int DEFAULT_PORT 	= 13267;
+
 	
 	public static TransInfo transInfo = new TransInfo();
 	

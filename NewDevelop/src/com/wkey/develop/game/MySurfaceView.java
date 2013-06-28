@@ -16,7 +16,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 	public MySurfaceView(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
-		holder = this.getHolder();//»ñÈ¡holder  
+		holder = this.getHolder();//è·å–holder  
         holder.addCallback(this);  
         mPaint = new Paint();  
         mPaint.setColor(Color.BLUE);  
@@ -41,25 +41,25 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 		
 	}
 	Canvas canvas;
-    //ÄÚ²¿ÀàµÄÄÚ²¿Àà  
+    //å†…éƒ¨ç±»çš„å†…éƒ¨ç±»  
     class MyThread implements Runnable{  
 
         @Override  
         public void run() {  
         	if(false){
-            canvas = holder.lockCanvas(null);//»ñÈ¡»­²¼  
+            canvas = holder.lockCanvas(null);//è·å–ç”»å¸ƒ  
 
             //int density=2;
             //canvas.drawRect(new RectF(40*density,60*density,300*density,300*density), mPaint); 
             paint(canvas);
 
-            holder.unlockCanvasAndPost(canvas);//½âËø»­²¼£¬Ìá½»»­ºÃµÄÍ¼Ïñ  
+            holder.unlockCanvasAndPost(canvas);//è§£é”ç”»å¸ƒï¼Œæäº¤ç”»å¥½çš„å›¾åƒ  
         	}else
             while(true) 
             {
-            	canvas = holder.lockCanvas(null);//»ñÈ¡»­²¼  
+            	canvas = holder.lockCanvas(null);//è·å–ç”»å¸ƒ  
             	paintLeaf(canvas);
-            	holder.unlockCanvasAndPost(canvas);//½âËø»­²¼£¬Ìá½»»­ºÃµÄÍ¼Ïñ  
+            	holder.unlockCanvasAndPost(canvas);//è§£é”ç”»å¸ƒï¼Œæäº¤ç”»å¥½çš„å›¾åƒ  
             }
         }  
           
@@ -67,7 +67,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     
     
     		public void paint(Canvas g) {
-    	         //g.drawString("¾²ÌıËÉÉùº®!!", 35, 50 );
+    	         //g.drawString("é™å¬æ¾å£°å¯’!!", 35, 50 );
     	         tree(700.0,1600.0,600.0,0.0,9,g);
     	     }
     	     public void tree(double x1,double y1,double x2,double y2,int n,Canvas g)
@@ -105,8 +105,8 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     	     }
     	     
     	     boolean dstatus = true;
-    	     float D=-25;//Ê÷µÄÍäÇú½Ç¶ÈC
-    	     float K=40;//Ê÷è¾µÄÉìÕ¹½Ç¶ÈB
+    	     float D=-25;//æ ‘çš„å¼¯æ›²è§’åº¦C
+    	     float K=40;//æ ‘æˆçš„ä¼¸å±•è§’åº¦B
     	     
     	     
     	     
@@ -124,18 +124,18 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     	         
     	         if (K<60) K=K+0.2f;
     	        // Canvas offscreenbuffer;
-    	         //Çå³ı»º³åÄÚµÄÍ¼ĞÎ
+    	         //æ¸…é™¤ç¼“å†²å†…çš„å›¾å½¢
     	        // offscreenbuffer.clearRect(0,0,600,600);
     	         mPaint.setColor(Color.BLACK);
     	        g.drawRect(0, 0, 1200, 2400, mPaint);
-    	         //ÉèÖÃÑÕÉ«
+    	         //è®¾ç½®é¢œè‰²
     	        // offscreenbuffer.setColor(Color.black); 
-    	          //ÔÚoffscreenbufferÖĞ»­Ê÷
+    	          //åœ¨offscreenbufferä¸­ç”»æ ‘
     	         //mPaint.setXfermode(new PorterDuffXfermode(Mode.CLEAR));
     	        mPaint.setColor(Color.BLUE);
     	         drawLeaf(g,400, 1200, 90,270,K,D);
     	         //mPaint.setXfermode(new PorterDuffXfermode(Mode.SRC));
-    	         //½«»º³åÄÚµÄÍ¼ĞÎ·Åµ½ÆÁÄ»
+    	         //å°†ç¼“å†²å†…çš„å›¾å½¢æ”¾åˆ°å±å¹•
     	        // g.drawImage(offscreenimage, 0, 0, this);
     	     }
     	     

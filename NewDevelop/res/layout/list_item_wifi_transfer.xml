@@ -4,45 +4,66 @@
      android:layout_height="?android:attr/listPreferredItemHeight"
      android:orientation="vertical" >
   
-    <!-- 商品图片 -->  
-   <LinearLayout
+	<!-- 商品图片 -->
+
+
+  
+	<LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:padding="6dip">
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="2dip"
-            android:src="@drawable/list_button_download_default" />
-      
-       <LinearLayout
-           android:orientation="vertical"
-           android:layout_width="0dip"
-           android:layout_weight="1"
-           android:layout_height="fill_parent">
-           <TextView
-               android:id="@+id/device_name"
-               android:layout_width="fill_parent"
-               android:layout_height="0dip"
-               android:layout_weight="1"
-               android:text="未知设备"
-               android:gravity="center_vertical" />
-           <!--  
-           <TextView
-               android:id="@+id/device_mac_address"
-               android:layout_width="fill_parent"
-               android:layout_height="0dip"
-               android:layout_weight="1"
-               android:gravity="center_vertical" />
-           <TextView
-               android:layout_width="fill_parent"
-               android:layout_height="0dip"
-               android:layout_weight="1"
-               android:id="@+id/device_details"
-               android:singleLine="true"
-               android:ellipsize="marquee" />  
-               -->      
-       </LinearLayout>
-        </LinearLayout>
+
+		<FrameLayout
+		    android:id="@+id/container_framelayout"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent" >
+		    <TextView
+	           android:id="@+id/background_progress"
+	           android:visibility="gone"
+	           android:layout_width="fill_parent"
+	           android:layout_height="fill_parent"
+	           android:background="@color/color_5" />
+		    
+		     <LinearLayout
+		         android:layout_width="match_parent"
+		         android:layout_height="match_parent" >
+		         <ImageView
+		            android:id="@+id/icon"
+		            android:layout_width="wrap_content"
+		            android:layout_height="fill_parent"
+		            android:layout_marginRight="2dip"
+		            android:src="@drawable/list_button_download_default" />
+		      
+		       <LinearLayout
+		           android:orientation="vertical"
+		           android:layout_width="0dip"
+		           android:layout_weight="1"
+		           android:layout_height="fill_parent">
+		           <TextView
+		               android:id="@+id/device_name"
+		               android:layout_width="fill_parent"
+		               android:layout_height="0dip"
+		               android:layout_weight="1"
+		               android:text="未知设备"
+		               android:gravity="center_vertical" />
+		           <!--  
+		           <TextView
+		               android:id="@+id/device_mac_address"
+		               android:layout_width="fill_parent"
+		               android:layout_height="0dip"
+		               android:layout_weight="1"
+		               android:gravity="center_vertical" />
+		           <TextView
+		               android:layout_width="fill_parent"
+		               android:layout_height="0dip"
+		               android:layout_weight="1"
+		               android:id="@+id/device_details"
+		               android:singleLine="true"
+		               android:ellipsize="marquee" />  
+		               -->      
+		       </LinearLayout>
+		     </LinearLayout>
+
+		</FrameLayout>
+	</LinearLayout>
  </LinearLayout>

@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.IntentFilter;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pInfo;
@@ -18,8 +20,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.oppo.transfer.sysf.wifi.ScanResult_bak;
+import com.oppo.transfer.sysf.wifi.ScanResultsAdapter;
 import com.oppo.transfer.sysf.wifidirect.IWifiDirectActionListener;
 import com.oppo.transfer.sysf.wifidirect.WiFiDirectBroadcastReceiver;
 import com.oppo.transfer.utils.Constants;
@@ -31,6 +37,7 @@ public class WindowNetworkSelect implements IWifiDirectActionListener {
 	private IntentFilter intentFilter = new IntentFilter();
 	private WiFiDirectBroadcastReceiver receiver;
 	private WifiUtil wifiUtil;
+	private WifiManager wifiManager;
 	private Context mContext;
 	
 	private ListView mlistView;
@@ -42,6 +49,10 @@ public class WindowNetworkSelect implements IWifiDirectActionListener {
 	
 	private List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
 	private ArrayAdapter<WifiP2pDevice> adapter;
+	
+	private ListView mListWifiDevices;
+	private ScanResultsAdapter scanAdapter;
+	private List<ScanResult> results = new ArrayList<ScanResult>();
 	
 	public WindowNetworkSelect(){
 	}
@@ -59,6 +70,7 @@ public class WindowNetworkSelect implements IWifiDirectActionListener {
 	private void initFuncs() {
 		//初始化、绑定 WifiDirectFunctions 和 WifiDirectBroadcastReceiver
 		wifiUtil = WifiUtil.getInstance(mContext, null);
+		wifiManager = (WifiManager)mContext.getSystemService(Context.WIFI_SERVICE);
 		registerfilter();
 		
 	}
@@ -84,9 +96,11 @@ public class WindowNetworkSelect implements IWifiDirectActionListener {
 		//TabHost 栏
 		th = (TabHost)layout.findViewById(android.R.id.tabhost);
 		th.setup();
-		th.addTab(th.newTabSpec("type").setIndicator("wifi direct").setContent(R.id.tab1));
-		th.addTab(th.newTabSpec("type").setIndicator("hotspot").setContent(R.id.tab2));
-		th.addTab(th.newTabSpec("type").setIndicator("wifi").setContent(R.id.tab3));
+		th.addTab(th.newTabSpec("tab1").setIndicator("wifi direct").setContent(R.id.tab1));
+		th.addTab(th.newTabSpec("tab2").setIndicator("hotspot").setContent(R.id.tab2));
+		th.addTab(th.newTabSpec("tab3").setIndicator("wifi").setContent(R.id.tab3));
+		th.setOnTabChangedListener(mOnTabChangeListener);
+		
 		
 		//
 		//adapter = new ArrayAdapter<WifiP2pDevice>(this, R.layout.list_item_wifi_transfer,R.id.device_name, peernames);
@@ -94,6 +108,11 @@ public class WindowNetworkSelect implements IWifiDirectActionListener {
 		adapter =new WiFiPeerListAdapter(mContext, R.layout.row_devices, Constants.peers);
 		mlistView = (ListView)layout.findViewById(R.id.list_device);
 		mlistView.setAdapter(adapter);
+		
+		scanAdapter = new ScanResultsAdapter(mContext,results);
+		mListWifiDevices = (ListView)layout.findViewById(R.id.list_wifi_device);
+		mListWifiDevices.setAdapter(scanAdapter);
+		
 		
 		//检测网络
 		if(WifiUtil.checkNetwork(mContext)){
@@ -118,6 +137,42 @@ public class WindowNetworkSelect implements IWifiDirectActionListener {
 		ip.setText(WifiUtil.getLocalIpAddress());
 		//peer_ip.setText(WifiUtil.getPeerIP(""));
 	}
+	
+	OnTabChangeListener mOnTabChangeListener = new OnTabChangeListener(){
+
+		@Override
+		public void onTabChanged(String tabid) {
+			// TODO Auto-generated method stub
+			if(tabid.equals("tab1")){
+				
+			}else if(tabid.equals("tab2")){
+				
+			}else if(tabid.equals("tab3")){
+				checkWifi();
+			}
+			
+		}
+
+		private void checkWifi() {
+			// TODO Auto-generated method stub
+			if(wifiManager.isWifiEnabled()){
+				boolean scan = wifiManager.startScan();
+				
+				if(scan){
+					results = wifiManager.getScanResults();
+					Toast.makeText(mContext, "wifi扫描完毕"+results.size(), Toast.LENGTH_LONG).show();
+				}
+			}else{
+				Toast.makeText(mContext, "sorry ,wifi并未开启", Toast.LENGTH_LONG).show();
+			}
+			deviceHandler.sendEmptyMessage(300);
+		}
+		
+		
+		
+	};
+	
+	
 	
 	/**
      * Array adapter for ListFragment that maintains WifiP2pDevice list.
@@ -197,6 +252,9 @@ public class WindowNetworkSelect implements IWifiDirectActionListener {
 			case 200:
 				updateDeviceInfo();
 				break;
+			case 300:
+				updateWifiList();
+				break;
 			default:
 				//if (isScrolling) {
 					//hasNotify = true;
@@ -208,6 +266,15 @@ public class WindowNetworkSelect implements IWifiDirectActionListener {
 			}
 		}
 		
+		private void updateWifiList() {
+			// TODO Auto-generated method stub
+			for(ScanResult sr:results){
+				System.out.println(sr.SSID);
+			}
+			scanAdapter.add(results);
+			scanAdapter.notifyDataSetChanged();
+		}
+
 		private void updateDeviceInfo() {
 			// TODO Auto-generated method stub
 			ssid.setText(mConnectedDevice.deviceName);
@@ -264,6 +331,13 @@ public class WindowNetworkSelect implements IWifiDirectActionListener {
 	}
 
 
+	
+	
+	/*
+	 *  Wifi Operations
+	 */
+	
+	
 
 
 }
